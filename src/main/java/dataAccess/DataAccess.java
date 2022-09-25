@@ -1304,7 +1304,7 @@ public void open(boolean initializeMode){
 		return b;
 	}
 	
-	public boolean jarraitu(Registered jabea, Registered jarraitua, Double limit) {
+	public boolean jarraitu(Registered jabea, Registered jarraitua, Double limite) {
 		Boolean b=false;
 		Registered jarraitu = (Registered) db.find(User.class, jarraitua.getUsername());
 		Registered harpideduna = (Registered) db.find(User.class, jabea.getUsername());
@@ -1315,7 +1315,7 @@ public void open(boolean initializeMode){
 			jarraitu.addJarraitzailea(jar);
 			b=true;
 			db.persist(jar);
-			harpideduna.setDiruLimitea(limit);
+			harpideduna.setDiruLimitea(limite);
 			db.getTransaction().commit();
 		}
 		return b;
