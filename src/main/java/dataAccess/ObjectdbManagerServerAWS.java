@@ -1,6 +1,8 @@
 package dataAccess;
 
 
+import java.io.IOException;
+
 import configuration.ConfigXML;
 
 
@@ -36,9 +38,12 @@ public class ObjectdbManagerServerAWS {
 		    	Thread.sleep(1000);
 		    	}
 			
-		} catch (Exception e) {
+		} catch (InterruptedException e) {
 			System.out.println("Something has happened in ObjectdbManagerServer: "+e.toString());
 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		}
