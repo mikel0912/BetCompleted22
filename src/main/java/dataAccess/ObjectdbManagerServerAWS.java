@@ -40,6 +40,7 @@ public class ObjectdbManagerServerAWS {
 			
 		} catch (InterruptedException e) {
 			System.out.println("Something has happened in ObjectdbManagerServer: "+e.toString());
+			Thread.currentThread().interrupt();
 
 		} catch (IOException e) {
 			System.out.println("Something has happened in ObjectdbManagerServer: "+e.toString());
