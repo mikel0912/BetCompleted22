@@ -42,8 +42,7 @@ public class ObjectdbManagerServerAWS {
 			System.out.println("Something has happened in ObjectdbManagerServer: "+e.toString());
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Something has happened in ObjectdbManagerServer: "+e.toString());
 		}
 		
 		}
