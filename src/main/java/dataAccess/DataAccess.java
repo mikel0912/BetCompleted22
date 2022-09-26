@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.io.File;
 import java.util.ArrayList;
 //hello
 import java.util.Calendar;
@@ -44,7 +45,7 @@ import exceptions.QuoteAlreadyExist;
 /**
  * It implements the data access to the objectDb database
  */
-public class DataAccess  {
+public class DataAccess implements DataAccessInterface {
 	protected static EntityManager  db;
 	protected static EntityManagerFactory emf;
 
@@ -1385,5 +1386,36 @@ public void open(boolean initializeMode){
 		query.setParameter(2, t.getIzena());
 		return query.getResultList();
 		
+	}
+
+	@Override
+	public void open() {
+		// TODO Auto-generated method stub
+		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
+
+		String fileName=c.getDbFilename();
+		
+		
+		if (c.isDatabaseLocal()) {
+			  emf = Persistence.createEntityManagerFactory("objectdb:"+fileName);
+			  db = emf.createEntityManager();
+		} else {
+			Map<String, String> properties = new HashMap<String, String>();
+			  properties.put("javax.persistence.jdbc.user", c.getUser());
+			  properties.put("javax.persistence.jdbc.password", c.getPassword());
+
+			  emf = Persistence.createEntityManagerFactory("objectdb://"+c.getDatabaseNode()+":"+c.getDatabasePort()+"/"+fileName, properties);
+
+			  db = emf.createEntityManager();
+    	   }
+	}
+
+	@Override
+	public void emptyDatabase() {
+		// TODO Auto-generated method stub
+		File f=new File(c.getDbFilename());
+		f.delete();
+		File f2=new File(c.getDbFilename()+"$");
+		f2.delete();
 	}
 }
