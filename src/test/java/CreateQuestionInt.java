@@ -10,11 +10,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import businessLogic.BLFacadeImplementation;
-import configuration.ConfigXML;
-import dataAccess.DataAccessInterface;
 import dataAccess.DataAccess;
+import dataAccess.DataAccessInterface;
 import domain.Event;
 import domain.Question;
+import domain.Team;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import test.businessLogic.TestFacadeImplementation;
@@ -24,6 +24,8 @@ public class CreateQuestionInt {
 	 static TestFacadeImplementation testBL;
 
 	private Event ev;
+	private Team lokala;
+	private Team kanpokoa;
 	
 	@BeforeClass
 	public static void setUpClass() {
@@ -47,6 +49,8 @@ public class CreateQuestionInt {
 			String eventText="event1";
 			String queryText="query1";
 			Float betMinimum=new Float(2);
+			lokala = new Team("Chelsea");
+			kanpokoa = new Team("Eibar");
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date oneDate=null;;
@@ -58,7 +62,7 @@ public class CreateQuestionInt {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEventWithQuestion(eventText,oneDate,queryText,betMinimum );
+			ev = testBL.addEventWithQuestion(eventText,oneDate,queryText,betMinimum, lokala, kanpokoa);
 			
 			
 			//invoke System Under Test (sut)  
@@ -79,7 +83,9 @@ public class CreateQuestionInt {
 			} finally {
 				  //Remove the created objects in the database (cascade removing)   
 		          boolean b=testBL.removeEvent(ev);
-		           System.out.println("Finally "+b);          
+		          boolean b2=testBL.removeTeam(lokala);
+		          boolean b3=testBL.removeTeam(kanpokoa);
+		           System.out.println("Finally "+b+b2+b3);          
 		        }
 		   }
 	
@@ -92,6 +98,8 @@ public class CreateQuestionInt {
 			String eventText="event1";
 			String queryText="query1";
 			Float betMinimum=new Float(2);
+			lokala=new Team("Chelsea");
+			kanpokoa=new Team("Eibar");
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date oneDate=null;;
@@ -103,7 +111,7 @@ public class CreateQuestionInt {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEventWithQuestion(eventText,oneDate,"query2",betMinimum );
+			ev = testBL.addEventWithQuestion(eventText,oneDate,"query2",betMinimum, lokala, kanpokoa);
 			
 			//invoke System Under Test (sut)  
 			Question q=sut.createQuestion(ev, queryText, betMinimum);
@@ -127,7 +135,9 @@ public class CreateQuestionInt {
 			} finally {
 				  //Remove the created objects in the database (cascade removing)   
 		          boolean b=testBL.removeEvent(ev);
-		           System.out.println("Finally "+b);          
+		          boolean b2=testBL.removeTeam(lokala);
+		          boolean b3=testBL.removeTeam(kanpokoa);
+		           System.out.println("Finally "+b+b2+b3);          
 		        }
 		   }
 	

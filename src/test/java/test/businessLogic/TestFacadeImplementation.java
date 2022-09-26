@@ -36,5 +36,12 @@ public class TestFacadeImplementation {
 			return o;
 
 		}
+		
+		public boolean removeTeam(Team t) {
+			dbManagerTest.open();
+			boolean b=dbManagerTest.removeTeam(t);
+			dbManagerTest.close();
+			return b;
+		}
 
 }
