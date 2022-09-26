@@ -1,5 +1,7 @@
 package dataAccess;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.ArrayList;
 //hello
@@ -1390,7 +1392,6 @@ public void open(boolean initializeMode){
 
 	@Override
 	public void open() {
-		// TODO Auto-generated method stub
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
 		String fileName=c.getDbFilename();
@@ -1412,10 +1413,11 @@ public void open(boolean initializeMode){
 
 	@Override
 	public void emptyDatabase() {
-		// TODO Auto-generated method stub
 		File f=new File(c.getDbFilename());
-		f.delete();
+		Boolean a=f.delete();
+		assertTrue(a.equals(true));
 		File f2=new File(c.getDbFilename()+"$");
-		f2.delete();
+		Boolean b=f2.delete();
+		assertTrue(b.equals(true));
 	}
 }
