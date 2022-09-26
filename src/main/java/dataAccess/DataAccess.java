@@ -1,7 +1,5 @@
 package dataAccess;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.util.ArrayList;
 //hello
@@ -15,6 +13,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -1413,11 +1413,12 @@ public void open(boolean initializeMode){
 
 	@Override
 	public void emptyDatabase() {
-		File f=new File(c.getDbFilename());
-		Boolean a=f.delete();
-		assertTrue(a.equals(true));
-		File f2=new File(c.getDbFilename()+"$");
-		Boolean b=f2.delete();
-		assertTrue(b.equals(true));
+			File f=new File(c.getDbFilename());
+			Boolean a=f.delete(); 
+			Logger logger= Logger.getLogger(DataAccess.class.getName());
+			logger.log(Level.WARNING, a.toString());
+			File f2=new File(c.getDbFilename()+"$");
+			Boolean b=f2.delete();
+			logger.log(Level.WARNING, b.toString());
 	}
 }
