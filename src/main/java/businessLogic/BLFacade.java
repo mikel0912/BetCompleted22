@@ -33,7 +33,7 @@ import exceptions.QuoteAlreadyExist;
  * Interface that specifies the business logic.
  */
 @WebService
-public interface BLFacade  {
+public interface BLFacade {
 	  
 
 	/**
