@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -33,11 +35,7 @@ import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
 import domain.Quote;
-import domain.Transaction;
 import domain.User;
-import exceptions.ApustuaAlreadyExist;
-import exceptions.EventFinished;
-import java.awt.Font;
 
 public class ApustuaEginGUI extends JFrame{
 
@@ -391,7 +389,7 @@ public class ApustuaEginGUI extends JFrame{
 					try {
 						BLFacade facade = MainGUI.getBusinessLogic();
 
-						Vector<domain.Event> events = facade.getEvents(firstDay);
+						List<domain.Event> events = facade.getEvents(firstDay);
 						
 						if (events.isEmpty()) {
 							jLabelListOfEvents.setText(ResourceBundle.getBundle("Etiquetas").getString("NoEvents")

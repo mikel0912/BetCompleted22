@@ -66,7 +66,7 @@ public interface DataAccessInterface {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	Vector<Event> getEvents(Date date);
+	List<Event> getEvents(Date date);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are events

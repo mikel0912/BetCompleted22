@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -21,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JCalendar;
 
@@ -31,7 +33,6 @@ import domain.Question;
 import domain.Quote;
 import domain.User;
 import exceptions.EventNotFinished;
-import javax.swing.SwingConstants;
 
 public class EmaitzakIpiniGUI extends JFrame{
 	private BLFacade businessLogic = MainGUI.getBusinessLogic();
@@ -247,7 +248,7 @@ public class EmaitzakIpiniGUI extends JFrame{
 					try {
 						BLFacade facade = MainGUI.getBusinessLogic();
 
-						Vector<domain.Event> events = facade.getEvents(firstDay);
+						List<domain.Event> events = facade.getEvents(firstDay);
 						
 						if (events.isEmpty()) {
 							jLabelListOfEvents.setText(ResourceBundle.getBundle("Etiquetas").getString("NoEvents")
