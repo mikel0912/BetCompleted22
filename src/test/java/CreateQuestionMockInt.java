@@ -139,12 +139,25 @@ public class CreateQuestionMockInt {
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+<<<<<<< HEAD
 			}		
 			try {
 				//configure Mock
 				Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
 				Mockito.when(dataAccess.createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(QuestionAlreadyExist.class);
+=======
+			}	
+>>>>>>> branch 'master' of https://github.com/mikel0912/BetCompleted22.git
 
+<<<<<<< HEAD
+=======
+			
+			try {
+				//configure Mock
+				Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
+				Mockito.when(dataAccess.createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(QuestionAlreadyExist.class);
+
+>>>>>>> branch 'master' of https://github.com/mikel0912/BetCompleted22.git
 				//invoke System Under Test (sut) 
 				sut.createQuestion(mockedEvent, queryText, betMinimum);
 			} catch (QuestionAlreadyExist e) {
@@ -154,6 +167,7 @@ public class CreateQuestionMockInt {
 				assertTrue(true);
 			} 
 			
+<<<<<<< HEAD
 			//if the program continues fail
 			fail();
 		}catch (EventFinished e) {
@@ -164,6 +178,18 @@ public class CreateQuestionMockInt {
 		}
 	}
 
+=======
+
+			//if the program continues fail
+			fail();
+		}catch (EventFinished e) {
+			// if the program goes to this point fail
+			fail();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+>>>>>>> branch 'master' of https://github.com/mikel0912/BetCompleted22.git
 	
 	
 	
