@@ -125,7 +125,6 @@ public class CreateQuestionMockInt {
 				e.printStackTrace();
 			}
 		   }
-	@SuppressWarnings("unchecked")
 	@Test
 	public void test7() {
 		try {
@@ -139,6 +138,7 @@ public class CreateQuestionMockInt {
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+<<<<<<< HEAD
 <<<<<<< HEAD
 			}		
 			try {
@@ -166,14 +166,24 @@ public class CreateQuestionMockInt {
 				// if the program goes to this point OK
 				assertTrue(true);
 			} 
+=======
+			}	
+			
+			//configure Mock
+			Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
+			Mockito.when(dataAccess.createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(QuestionAlreadyExist.class);
+			
+
+			//invoke System Under Test (sut) 
+			sut.createQuestion(mockedEvent, queryText, betMinimum);
+>>>>>>> parent of 3878211 (Mockito import ondo 2)
 			
 <<<<<<< HEAD
 			//if the program continues fail
-			fail();
-		}catch (EventFinished e) {
-			// if the program goes to this point fail
-			fail();
+		    fail();
+		   } catch (QuestionAlreadyExist e) {
 			// TODO Auto-generated catch block
+<<<<<<< HEAD
 			e.printStackTrace();
 		}
 	}
@@ -190,6 +200,18 @@ public class CreateQuestionMockInt {
 		}
 	}
 >>>>>>> branch 'master' of https://github.com/mikel0912/BetCompleted22.git
+=======
+			   
+			// if the program goes to this point OK
+			assertTrue(true);
+			} catch (EventFinished e) {
+				// if the program goes to this point fail
+			    fail();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   }
+>>>>>>> parent of 3878211 (Mockito import ondo 2)
 	
 	
 	
