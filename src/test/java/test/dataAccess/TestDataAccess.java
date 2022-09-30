@@ -7,10 +7,12 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import domain.Event;
 import domain.Question;
+import domain.Sport;
 import domain.Team;
 
 public class TestDataAccess {
@@ -104,5 +106,57 @@ public class TestDataAccess {
 			} else 
 			return false;
 		}
+		
+		public Sport kirolaSortu(String desc) {
+			System.out.println(">> DataAccessTest: kirolaSortu");
+			db.getTransaction().begin();
+			Sport s = new Sport(desc);
+			db.persist(s);
+			db.getTransaction().commit();
+			return s;
+		}
+		
+		public Event gertaeraSortu(String description,Date eventDate, Sport sport) {
+			Event e =null;
+			if(description==null) {
+				return e;
+			}else {
+				Sport spo =db.find(Sport.class, sport.getIzena());
+				if(spo!=null){
+					TypedQuery<Event> Equery = db.createQuery("SELECT e FROM Event e WHERE e.getEventDate() =?1 ",Event.class);
+					Equery.setParameter(1, eventDate);
+					for(Event ev: Equery.getResultList()) {
+						if(ev.getDescription().equals(description)) {
+							return e;
+						}
+					}
+					db.getTransaction().begin();
+					String[] taldeak = description.split("-");
+					Team lokala = new Team(taldeak[0]);
+					Team kanpokoa = new Team(taldeak[1]);
+					e = new Event(description, eventDate, lokala, kanpokoa);
+					e.setSport(spo);
+					spo.addEvent(e);
+					db.persist(e);
+					db.getTransaction().commit();
+				}else {
+					return e;
+				}
+			}
+			return e;
+		}
+		
+		public boolean kirolaEzabatu(Sport s) {
+			System.out.println(">> DataAccessTest: KirolaEzabatu");
+			Sport spo = db.find(Sport.class, s.getIzena());
+			if (spo!=null) {
+				db.getTransaction().begin();
+				db.remove(spo);
+				db.getTransaction().commit();
+				return true;
+			} else 
+			return false;
+		}
+		
 }
 

@@ -884,7 +884,6 @@ public void open(boolean initializeMode){
 	
 	public boolean gertaerakSortu(String description,Date eventDate, String sport) {
 		boolean b = true;
-		db.getTransaction().begin();
 		Sport spo =db.find(Sport.class, sport);
 		if(spo!=null) {
 			TypedQuery<Event> Equery = db.createQuery("SELECT e FROM Event e WHERE e.getEventDate() =?1 ",Event.class);
@@ -895,6 +894,7 @@ public void open(boolean initializeMode){
 				}
 			}
 			if(b) {
+				db.getTransaction().begin();
 				String[] taldeak = description.split("-");
 				Team lokala = new Team(taldeak[0]);
 				Team kanpokoa = new Team(taldeak[1]);
@@ -902,11 +902,11 @@ public void open(boolean initializeMode){
 				e.setSport(spo);
 				spo.addEvent(e);
 				db.persist(e);
+				db.getTransaction().commit();
 			}
 		}else {
 			return false;
 		}
-		db.getTransaction().commit();
 		return b;
 	}
 	
@@ -1109,7 +1109,7 @@ public void open(boolean initializeMode){
 		String result = q.getForecast();
 		
 		if(new Date().compareTo(q.getQuestion().getEvent().getEventDate())<0)
-			throw new EventNotFinished();
+			throw new EventNotFinished("Data gaurkoa baina altuagoa da");
 
 		Vector<Apustua> listApustuak = q.getApustuak();
 		db.getTransaction().begin();
