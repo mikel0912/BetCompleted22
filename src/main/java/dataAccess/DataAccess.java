@@ -1119,7 +1119,7 @@ public void open(boolean initializeMode){
 		for(Quote quo: question.getQuotes()) {
 			for(Apustua apu: quo.getApustuak()) {
 				
-				Boolean b=apu.galdutaMarkatu(quo);
+				Boolean b=apu.galdutaMarkatu(q);
 				if(b) {
 					apu.getApustuAnitza().setEgoera("galduta");
 				}else {
