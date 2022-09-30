@@ -1,15 +1,19 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import dataAccess.DataAccess;
 import dataAccess.DataAccessInterface;
+import domain.Apustua;
 import domain.Event;
 import domain.Question;
 import domain.Quote;
@@ -81,6 +85,54 @@ public class EmaitzakIpiniDABTest {
 		} catch (EventNotFinished e) {
 			String msg= e.getMessage();
 			assertTrue(msg.compareTo(expected)==0);
+		}finally {
+			//Remove the created objects in the database (cascade removing)   
+			testDA.open();
+			boolean a=testDA.kirolaEzabatu(sport);
+	        boolean b2=testDA.removeTeam(lokala);
+	        boolean b3=testDA.removeTeam(kanpokoa);
+	        testDA.close();
+		}
+	}
+	
+	@Test
+	//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean
+	public void test2() {
+		List<Apustua> expected = new ArrayList<Apustua>();
+		try {
+			lokala= new Team("Eibar");
+			kanpokoa = new Team("Barca");
+			testDA.open();
+			sport=testDA.kirolaSortu("Futbola");
+			testDA.close();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date oneDate=null;;
+			try {
+				oneDate = sdf.parse("12/12/2020");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			testDA.open();
+			ev1=testDA.gertaeraSortu("Eibar-Barca", oneDate, sport);
+			testDA.close();
+			try {
+				que1=sut.createQuestion(ev1, "Irabazlea", 2);
+			} catch (QuestionAlreadyExist e) {
+				fail();
+			}
+			try {
+				quo1=sut.storeQuote("1", 3.0, que1);
+			} catch (QuoteAlreadyExist e) {
+				fail();
+			}
+		
+			//invoke System Under Test (sut)  
+			sut.EmaitzakIpini(quo1);
+			System.out.println(quo1.getApustuak());
+			System.out.println(expected);
+			assertEquals(expected, quo1.getApustuak());
+		} catch (EventNotFinished e) {
+			e.printStackTrace();
 		}finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
