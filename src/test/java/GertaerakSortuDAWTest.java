@@ -6,17 +6,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.After;
 import org.junit.Test;
 
 import dataAccess.DataAccess;
 import dataAccess.DataAccessInterface;
 import domain.Event;
 import domain.Question;
+import domain.Sport;
 import domain.Team;
 import exceptions.QuestionAlreadyExist;
 import test.dataAccess.TestDataAccess;
 
-public class GertaerakSortuDAB {
+public class GertaerakSortuDAWTest {
 
 	//sut:system under test
 	static DataAccessInterface sut=new DataAccess();
@@ -28,7 +30,8 @@ public class GertaerakSortuDAB {
 	private Team lokala;
 	private Team kanpokoa;
 	private String description;
-	private String sport;
+	private Sport sport;
+	private String sportizen;
 	private Date data;
 
 	@Test
@@ -39,7 +42,7 @@ public class GertaerakSortuDAB {
 
 			//define paramaters
 			description = "Eibar-Barca";
-			sport = "Pilla-Pilla";
+			sportizen = "Pilla-Pilla";
 
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			data=null;;
@@ -51,7 +54,7 @@ public class GertaerakSortuDAB {
 			}	
 
 			//invoke System Under Test (sut)  
-			sortuta =sut.gertaerakSortu(description, data, sport);
+			sortuta =sut.gertaerakSortu(description, data, sportizen);
 			//verify the results
 			assertTrue(!sortuta);
 
@@ -62,9 +65,9 @@ public class GertaerakSortuDAB {
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
-			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport))){
+			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sportizen))){
 				boolean b=testDA.removeEvent(ev);
-				boolean b1 = testDA.kirolaEzabatuIzenarekin(sport);
+				boolean b1 = testDA.kirolaEzabatuIzenarekin(sportizen);
 				testDA.close();
 				if(b && b1) {
 					System.out.println("Gertaera ezabatuta (finaly) "+b);
@@ -84,22 +87,25 @@ public class GertaerakSortuDAB {
 	@Test
 	//sut.gertaerakSortu:  The are no events in the DB yet. The test success
 	public void test2() {
+		Event ev1= null;
+		Event ev2= null;
 		try {
 			//define paramaters
-			description = "Ermua-Soraluze";
-			sport= "Futbol";
-
+			description = "Bergara-Eibar";
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			data=null;
 			try {
-				data = sdf.parse("05/12/2022");
+				data = sdf.parse("05/12/2023");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
+			testDA.open();
+			sport=testDA.kirolaSortu("Golf");
+			testDA.close();
 
 			//invoke System Under Test (sut)  
-			Boolean sortuta =sut.gertaerakSortu(description, data, sport);
+			Boolean sortuta =sut.gertaerakSortu(description, data, sport.getIzena());
 			//verify the results
 			assertTrue(sortuta);
 
@@ -110,44 +116,47 @@ public class GertaerakSortuDAB {
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
-			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport))){
-				boolean b1 = testDA.kirolarenGertaeraEzabatuArray(sport, ev);
-				boolean b=testDA.removeEvent(ev);
+			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport.getIzena()))){
+				boolean b=testDA.removeEvent2(ev);
 				testDA.close();
-				if(b && b1) {
+				if(b) {
 					System.out.println("Gertaera ezabatuta (finaly) "+b);
-					assertTrue(b && b1);
+					assertTrue(b);
 				}else {
-					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b+b1);
-					assertTrue(b && b1);
+					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b);
+					assertTrue(b);
 				}
 			}else {
 				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
 				assertTrue(false);
-			}
-			         
+			}	         
 		}
 	}
-	
+
 	@Test
 	//sut.gertaerakSortu:  The are events in the DB. No one with the same description. The test success
 	public void test3() {
+		Event ev1= null;
+		Event ev2= null;
 		try {
 			//define paramaters
-			description = "Eibar-Soraluze";
-			sport= "Futbol";
-
+			description = "Ermua-Eibar";
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			data=null;
 			try {
-				data = sdf.parse("05/12/2022");
+				data = sdf.parse("05/12/2023");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
+			testDA.open();
+			sport=testDA.kirolaSortu("Kanikak");
+			ev1= testDA.gertaeraSortu("Ermua-Elgoibar", data, sport);
+			ev2= testDA.gertaeraSortu("Ermua-Soraluze", data, sport);
+			testDA.close();
 
 			//invoke System Under Test (sut)  
-			Boolean sortuta =sut.gertaerakSortu(description, data, sport);
+			Boolean sortuta =sut.gertaerakSortu(description, data, sport.getIzena());
 			//verify the results
 			assertTrue(sortuta);
 
@@ -158,22 +167,72 @@ public class GertaerakSortuDAB {
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
-			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport))){
-				boolean b1 = testDA.kirolarenGertaeraEzabatuArray(sport, ev);
-				boolean b=testDA.removeEvent(ev);
+			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport.getIzena()))){
+				boolean b=testDA.removeEvent2(ev);
+				boolean b1 = testDA.removeEvent(ev1);
+				boolean b2 = testDA.removeEvent(ev2);
+				testDA.close();
+				if(b && b1 && b2) {
+					System.out.println("Gertaera ezabatuta (finaly) "+b);
+					assertTrue(b && b1 && b2);
+				}else {
+					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b);
+					assertTrue(b && b1 && b2);
+				}
+			}else {
+				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
+				assertTrue(false);
+			}	         
+		}
+	}
+	
+	@Test
+	//sut.gertaerakSortu:  The are events in the DB. There is one with the same description. The test fail
+	public void test4() {
+		Event ev1= null;
+		try {
+			//define paramaters
+			description = "Ermua-Eibar";
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			data=null;
+			try {
+				data = sdf.parse("05/12/2023");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			testDA.open();
+			sport=testDA.kirolaSortu("Komba");
+			ev1= testDA.gertaeraSortu("Ermua-Eibar", data, sport);
+			testDA.close();
+
+			//invoke System Under Test (sut)  
+			Boolean sortuta =sut.gertaerakSortu(description, data, sport.getIzena());
+			//verify the results
+			assertTrue(!sortuta);
+
+		}catch(NullPointerException e1) {
+			assertTrue(false);
+		} finally {
+			//Remove the created objects in the database (cascade removing)   
+			testDA.open();
+			int number = testDA.findMaxID();
+			Event ev = testDA.findEventFromNumber(number);
+			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport.getIzena()))){
+				boolean b=testDA.removeEvent2(ev);
+				boolean b1 = testDA.removeEvent(ev1);
 				testDA.close();
 				if(b && b1) {
 					System.out.println("Gertaera ezabatuta (finaly) "+b);
 					assertTrue(b && b1);
 				}else {
 					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b+b1);
-					assertTrue(b && b1);
+					assertTrue(true);
 				}
 			}else {
 				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
-			}
-			         
+				assertTrue(false);
+			}	         
 		}
 	}
 }
-
