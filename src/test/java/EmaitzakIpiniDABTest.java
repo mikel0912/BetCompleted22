@@ -106,7 +106,6 @@ public class EmaitzakIpiniDABTest {
 		@Test
 		//sut.createQuestion:  The event date is after than today. The test fail
 		public void test4() {
-			String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
@@ -152,7 +151,6 @@ public class EmaitzakIpiniDABTest {
 		@Test
 		//sut.createQuestion:  Pasatako kuota ez dago datu basean. The test fail
 		public void test5() {
-			String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");

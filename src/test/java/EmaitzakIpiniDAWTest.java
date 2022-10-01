@@ -97,7 +97,7 @@ public class EmaitzakIpiniDAWTest {
 	
 	@Test
 	//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean
-	public void test2() {
+	public void test3() {
 		List<Apustua> expected = new ArrayList<Apustua>();
 		try {
 			lokala= new Team("Eibar");
