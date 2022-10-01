@@ -3,9 +3,12 @@ package test.dataAccess;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -166,6 +169,55 @@ public class TestDataAccess {
 			return true;
 		} else 
 			return false;
+	}
+	
+	public boolean kirolaEzabatuIzenarekin(String s) {
+		System.out.println(">> DataAccessTest: KirolaEzabatu");
+		Sport spo = db.find(Sport.class, s);
+		if (spo!=null) {
+			db.getTransaction().begin();
+			db.remove(spo);
+			db.getTransaction().commit();
+			return true;
+		} else 
+			return false;
+	}
+	
+	public boolean kirolarenGertaeraEzabatu(String s, Event e) {
+		System.out.println(">> DataAccessTest: KirolaEzabatu");
+		Sport spo = db.find(Sport.class, s);
+		if (spo!=null) {
+			for(Event ev: spo.getEvents()) {
+				if(ev.getEventNumber().equals(e.getEventNumber())) {
+					db.getTransaction().begin();
+					db.remove(ev);
+					db.getTransaction().commit();
+					return true;
+				}
+			}	
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean kirolarenGertaeraEzabatuArray(String s, Event e) {
+		System.out.println(">> DataAccessTest: KirolaEzabatu");
+		Sport spo = db.find(Sport.class, s);
+		if (spo!=null) {
+			Vector<Event> al = spo.getEvents();
+			Iterator<Event> itr = al.iterator();
+	        while (itr.hasNext()){
+	            Event ev = (Event) itr.next();
+	            if (ev.getEventNumber().equals(e.getEventNumber())) {
+	                itr.remove();
+	            	return true;
+				}
+			}	
+		} else {
+			return false;
+		}
+		return false;
 	}
 
 	public int findMaxID() {
