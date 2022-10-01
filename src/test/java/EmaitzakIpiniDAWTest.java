@@ -153,6 +153,8 @@ public class EmaitzakIpiniDAWTest {
 	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
 	public void test6() {
 		String expected = "jokoan";
+		String expected2 = "irabazita";
+		String expected3 = "1";
 			lokala= new Team("Eibar");
 			kanpokoa = new Team("Barca");
 			testDA.open();
@@ -196,7 +198,9 @@ public class EmaitzakIpiniDAWTest {
 			//invoke System Under Test (sut)  
 			try {
 			sut.EmaitzakIpini(quo1);
-			assertEquals(expected, apu1.getEgoera());
+			assertEquals(expected, apu1.getApustuAnitza().getEgoera());
+			assertEquals(expected2, apu1.getEgoera());
+			assertEquals(que1.getResult(), expected3);
 		} catch (EventNotFinished e) {
 			e.printStackTrace();
 		}finally {
