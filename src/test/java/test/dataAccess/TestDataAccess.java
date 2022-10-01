@@ -1,9 +1,5 @@
 package test.dataAccess;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,9 +13,10 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
+import domain.Apustua;
 import domain.Event;
 import domain.Question;
-import domain.Quote;
+import domain.Registered;
 import domain.Sport;
 import domain.Team;
 
@@ -230,6 +227,89 @@ public class TestDataAccess {
 	public Event findEventFromNumber(int i){
 		Event e = db.find(Event.class, i);
 		return e; 
+	}
+	
+	public Registered storeRegistered(String username, String password, Integer bankAccount) {
+		db.getTransaction().begin();
+		Registered ad = new Registered(username, password, bankAccount);
+		db.persist(ad);
+		db.getTransaction().commit();
+		return ad;
+	}
+	
+	public Event gertaeraSortu2(String description,Date eventDate, String sport) {
+		Event e =null;
+		
+			Sport spo =db.find(Sport.class, sport);
+			if(spo!=null){
+				TypedQuery<Event> Equery = db.createQuery("SELECT e FROM Event e WHERE e.getEventDate() =?1 ",Event.class);
+				Equery.setParameter(1, eventDate);
+				for(Event ev: Equery.getResultList()) {
+					if(ev.getDescription().equals(description)) {
+						return e;
+					}
+				}
+				db.getTransaction().begin();
+				String[] taldeak = description.split("-");
+				Team lokala = new Team(taldeak[0]);
+				Team kanpokoa = new Team(taldeak[1]);
+				e = new Event(description, eventDate, lokala, kanpokoa);
+				e.setSport(spo);
+				spo.addEvent(e);
+				db.persist(e);
+				db.getTransaction().commit();
+			}
+		
+		
+		return e;
+	}
+	
+	public int findMaxIDApustua() {
+		String sql = "SELECT MAX(apustuaNumber) AS apustua_num FROM Apustua";
+		Query m = db.createQuery(sql);
+		int value = (int) m.getSingleResult();
+		System.out.println(value);
+		return value;
+	}
+	public Apustua findApustuaFromNumber(int i){
+		Apustua e = db.find(Apustua.class, i);
+		return e; 
+	}
+	
+	public boolean removeEvent2(Event ev) {
+		System.out.println(">> DataAccessTest: removeEvent");
+		Event e = db.find(Event.class, ev.getEventNumber());
+		if (e!=null) {
+			db.getTransaction().begin();
+			e.getSport().setEvents(null);
+			db.remove(e);
+			db.remove(e.getSport());
+			db.getTransaction().commit();
+			return true;
+		} else 
+		return false;
+    }
+	
+	public boolean registerEzabatu(Registered r) {
+		System.out.println(">> DataAccessTest: RegisteredEzabatu");
+		Registered reg = db.find(Registered.class, r.getUsername());
+		if (reg!=null) {
+			db.getTransaction().begin();
+			for(int i=0; i<reg.getSportEstatistikak().size()-1;i++){
+				reg.removeKirolEstatistikak(reg.getSportEstatistikak().get(i));
+				reg.getSportEstatistikak().get(i).setUser(null);
+			}
+			for(int y=0; y<reg.getApustuAnitzak().size(); y++) {
+				for(int z=0; z<reg.getApustuAnitzak().get(y).getApustuak().size();z++) {
+					reg.getApustuAnitzak().get(y).getApustuak().get(z).setApustuAnitza(null);
+					reg.getApustuAnitzak().get(y).removeApustua(reg.getApustuAnitzak().get(y).getApustuak().get(z));;
+				}
+			}
+			db.remove(reg);
+			db.getTransaction().commit();
+			return true;
+		} else 
+		return false;
 	}
 
 }

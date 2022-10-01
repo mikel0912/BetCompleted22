@@ -20,7 +20,7 @@ public class Sport implements Serializable{
 	private String izena;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Vector<Event> events=new Vector<Event>();
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Vector<KirolEstatistikak> sportEstatistikak=new Vector<KirolEstatistikak>();
 	private Integer apustuKantitatea;
 	

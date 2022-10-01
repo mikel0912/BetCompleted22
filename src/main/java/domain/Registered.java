@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Registered extends User implements Serializable{
 	private Double dirukop;
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Vector<Transaction> transakzioak; 
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Vector<ApustuAnitza> apustuAnitzak; 
@@ -177,6 +177,10 @@ public class Registered extends User implements Serializable{
 	}
 	public void setSportEstatistikak(Vector<KirolEstatistikak> sportEstatistikak) {
 		this.sportEstatistikak = sportEstatistikak;
+	}
+	
+	public void removeKirolEstatistikak(KirolEstatistikak spo) {
+		this.sportEstatistikak.remove(spo);
 	}
 	
 	@Override
