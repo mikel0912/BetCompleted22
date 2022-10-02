@@ -78,11 +78,11 @@ public interface BLFacade {
 	
 	@WebMethod public boolean gertaerakSortu(String description,Date eventDate, String sport) throws EventFinished;
 	
-	@WebMethod public void storeQuote(String forecast, Double quote, Question question) throws QuoteAlreadyExist;
+	@WebMethod public Quote storeQuote(String forecast, Double quote, Question question) throws QuoteAlreadyExist;
 	
 	@WebMethod public Collection<Question> findQuestion(Event event);
 	
-	@WebMethod public void DiruaSartu(User u, Double dirua, String mota); 
+	@WebMethod public void DiruaSartu(User u, Double dirua, Date data,String mota); 
 	
 	@WebMethod public Collection<Quote> findQuote(Question question); 
 	

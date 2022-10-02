@@ -9,9 +9,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import businessLogic.BLFacadeImplementation;
 import dataAccess.DataAccess;
 import dataAccess.DataAccessInterface;
 import domain.Apustua;
@@ -21,50 +22,43 @@ import domain.Quote;
 import domain.Registered;
 import domain.Sport;
 import domain.Team;
+import exceptions.EventFinished;
 import exceptions.EventNotFinished;
 import exceptions.QuestionAlreadyExist;
 import exceptions.QuoteAlreadyExist;
-import test.dataAccess.TestDataAccess;
+import test.businessLogic.TestFacadeImplementation;
 
-public class EmaitzakIpiniDABTest {
-	//sut:system under test
-		static DataAccessInterface sut=new DataAccess();
-			 
-		//additional operations needed to execute the test 
-		static TestDataAccess testDA=new TestDataAccess();
-		
-		private Registered reg1;
-		private Registered reg2;
-		private Event ev1;
-		private Question que1;
-		private Question que2;
-		private Quote quo1;
-		private Quote quo2;
-		private Apustua apu1;
-		private Apustua apu2;
-		private Team lokala;
-		private Team kanpokoa;
-		private Sport sport;
-		
-		
-		@Before
-		public void initialize() {
-			System.out.println("Inicializo y compruebo ...");
-			ev1=null;
-			que1=null;
-			quo1=null;
-			que2=null;
-			quo2=null;
-			apu1=null;
-			apu2=null;
-			lokala=null;
-			kanpokoa=null;
-			sport=null;
-			reg1=null;
-			reg2=null;
-		} 
-		
-		@Test
+public class EmaitzakIpiniINTTest {
+	static BLFacadeImplementation sut;
+	 static TestFacadeImplementation testBL;
+	 
+	 private Registered reg1;
+	 private Registered reg2;
+	 private Event ev1;
+	 private Question que1;
+	 private Question que2;
+	 private Quote quo1;
+	 private Quote quo2;
+	 private Apustua apu1;
+	 private Apustua apu2;
+	 private Team lokala;
+	 private Team kanpokoa;
+	 private Sport sport;
+	 
+	 @BeforeClass
+		public static void setUpClass() {
+			//sut= new BLFacadeImplementation();
+			
+			// you can parametrize the DataAccess used by BLFacadeImplementation
+			//DataAccess da= new DataAccess(ConfigXML.getInstance().getDataBaseOpenMode().equals("initialize"));
+			DataAccessInterface da= new DataAccess();
+
+			sut=new BLFacadeImplementation(da);
+			
+			testBL= new TestFacadeImplementation();
+		}
+	 
+	 @Test
 		//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean eta apustu bat galdu denean. The test success
 		public void test1() {
 			String expected = "irabazita";
@@ -73,9 +67,7 @@ public class EmaitzakIpiniDABTest {
 			String expected4 = "galduta";
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("F");
-				testDA.close();
+				sport=testBL.kirolaSortu("F");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
@@ -83,12 +75,11 @@ public class EmaitzakIpiniDABTest {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu2("Eibar-Barca", oneDate, "F");
-				testDA.close();
+
+				ev1=testBL.gertaeraSortu2("Eibar-Barca", oneDate, "F");
 				try {
-					que1=sut.createQuestion(ev1, "Zeinek irabaziko du?", 2);
-					que2=sut.createQuestion(ev1, "Ansu Fati gola?", 2);
+					que1=testBL.createQuestion2(ev1, "Zeinek irabaziko du?", 2);
+					que2=testBL.createQuestion2(ev1, "Ansu Fati gola?", 2);
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}
@@ -100,28 +91,20 @@ public class EmaitzakIpiniDABTest {
 				}
 				Vector<Quote> quoteLista= new Vector<Quote>();
 				quoteLista.add(quo1);
-				testDA.open();
-				reg1=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
-				testDA.close();
+				reg1=testBL.storeRegistered("reg"+Math.random()*10, "123", 1234);
 				sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
 				
 				sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
-				testDA.open();
-				Integer i = testDA.findMaxIDApustua();
-				apu1=testDA.findApustuaFromNumber(i);
-				testDA.close();
-				
-				testDA.open();
-				reg2=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
-				testDA.close();
+				Integer i = testBL.findMaxIDApustua();
+				apu1=testBL.findApustuaFromNumber(i);
+
+				reg2=testBL.storeRegistered("reg"+Math.random()*10, "123", 1234);
 				sut.DiruaSartu(reg2, 10.0, oneDate, "DiruaSartu");
 				Vector<Quote> quoteLista2= new Vector<Quote>();
 				quoteLista2.add(quo2);
 				sut.ApustuaEgin(reg2, quoteLista2, 4.0, -1);
-				testDA.open();
-				Integer j = testDA.findMaxIDApustua();
-				apu2=testDA.findApustuaFromNumber(j);
-				testDA.close();
+				Integer j = testBL.findMaxIDApustua();
+				apu2=testBL.findApustuaFromNumber(j);
 				
 				//invoke System Under Test (sut)  
 			try {
@@ -138,24 +121,20 @@ public class EmaitzakIpiniDABTest {
 				//Remove the created objects in the database (cascade removing) 
 				sut.apustuaEzabatu(reg1, apu1.getApustuAnitza());
 				sut.apustuaEzabatu(reg2, apu2.getApustuAnitza());
-				testDA.open();
-				boolean b=testDA.removeEvent2(ev1);
-				boolean b1=testDA.registerEzabatu(reg1);
-				boolean b2=testDA.registerEzabatu(reg2);
-		        testDA.close();
+				boolean b=testBL.removeEvent2(ev1);
+				boolean b1=testBL.registerEzabatu(reg1);
+				boolean b2=testBL.registerEzabatu(reg2);
 			}
 		}
-		
-		@Test
+	 
+	 @Test
 		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
 		public void test2() {
 			List<Apustua> expected = new ArrayList<Apustua>();
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("Futbola");
-				testDA.close();
+				sport=testBL.kirolaSortu("Futbola");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
@@ -163,11 +142,9 @@ public class EmaitzakIpiniDABTest {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu("Eibar-Barca", oneDate, sport);
-				testDA.close();
+				ev1=testBL.gertaeraSortu("Eibar-Barca", oneDate, sport);
 				try {
-					que1=sut.createQuestion(ev1, "Irabazlea", 2);
+					que1=testBL.createQuestion2(ev1, "Irabazlea", 2);
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}
@@ -186,15 +163,13 @@ public class EmaitzakIpiniDABTest {
 				e.printStackTrace();
 			}finally {
 				//Remove the created objects in the database (cascade removing)   
-				testDA.open();
-				boolean a=testDA.kirolaEzabatu(sport);
-		        boolean b2=testDA.removeTeam(lokala);
-		        boolean b3=testDA.removeTeam(kanpokoa);
-		        testDA.close();
+				boolean a=testBL.kirolaEzabatu(sport);
+		        boolean b2=testBL.removeTeam(lokala);
+		        boolean b3=testBL.removeTeam(kanpokoa);
 			}
 		}
-		
-		@Test
+	 
+	 @Test
 		//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
 		public void test3() {
 			String expected = "jokoan";
@@ -202,9 +177,9 @@ public class EmaitzakIpiniDABTest {
 			String expected3 = "1";
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("Futbola");
-				testDA.close();
+				
+				sport=testBL.kirolaSortu("Futbola");
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
@@ -212,12 +187,14 @@ public class EmaitzakIpiniDABTest {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu2("Eibar-Barca", oneDate, "Futbola");
-				testDA.close();
+				
+				ev1=testBL.gertaeraSortu2("Eibar-Barca", oneDate, "Futbola");
+				
 				try {
-					que1=sut.createQuestion(ev1, "Zeinek irabaziko du?", 2);
-					que2=sut.createQuestion(ev1, "Ansu Fati gola?", 2);
+					
+					que1=testBL.createQuestion2(ev1, "Zeinek irabaziko du?", 2);
+					que2=testBL.createQuestion2(ev1, "Ansu Fati gola?", 2);
+				
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}
@@ -230,16 +207,16 @@ public class EmaitzakIpiniDABTest {
 				Vector<Quote> quoteLista= new Vector<Quote>();
 				quoteLista.add(quo1);
 				quoteLista.add(quo2);
-				testDA.open();
-				reg1=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
-				testDA.close();
+				
+				reg1=testBL.storeRegistered("reg"+Math.random()*10, "123", 1234);
+				
 				sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
 				
 				sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
-				testDA.open();
-				Integer i = testDA.findMaxIDApustua();
-				apu1=testDA.findApustuaFromNumber(i);
-				testDA.close();
+				
+				Integer i = testBL.findMaxIDApustua();
+				apu1=testBL.findApustuaFromNumber(i);
+				
 				//invoke System Under Test (sut)  
 				try {
 				sut.EmaitzakIpini(quo1);
@@ -251,23 +228,23 @@ public class EmaitzakIpiniDABTest {
 			}finally {
 				//Remove the created objects in the database (cascade removing) 
 				sut.apustuaEzabatu(reg1, apu1.getApustuAnitza());
-				testDA.open();
-				boolean b=testDA.removeEvent2(ev1);
-				boolean b1=testDA.registerEzabatu(reg1);
-		        testDA.close();
+				
+				boolean b=testBL.removeEvent2(ev1);
+				boolean b1=testBL.registerEzabatu(reg1);
+		        
 			}
 		}
-		
-		@Test
+	 
+	 @Test
 		//sut.createQuestion:  The event date is after than today. The test fail
 		public void test4() {
-			String expected = "Data gaurkoa baina altuagoa da";
+		 String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("Futbola");
-				testDA.close();
+				
+				sport=testBL.kirolaSortu("Futbola");
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
@@ -275,11 +252,16 @@ public class EmaitzakIpiniDABTest {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu("Eibar-Barca", oneDate, sport);
-				testDA.close();
+				
+				ev1=testBL.gertaeraSortu("Eibar-Barca", oneDate, sport);
+				
 				try {
-					que1=sut.createQuestion(ev1, "Irabazlea", 2);
+					try {
+						que1=sut.createQuestion(ev1, "Irabazlea", 2);
+					} catch (EventFinished e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}
@@ -296,35 +278,36 @@ public class EmaitzakIpiniDABTest {
 				assertTrue(msg.compareTo(expected)==0);
 			}finally {
 				//Remove the created objects in the database (cascade removing)   
-				testDA.open();
-				boolean a=testDA.kirolaEzabatu(sport);
-		        boolean b2=testDA.removeTeam(lokala);
-		        boolean b3=testDA.removeTeam(kanpokoa);
-		        testDA.close();
+				
+				boolean a=testBL.kirolaEzabatu(sport);
+		        boolean b2=testBL.removeTeam(lokala);
+		        boolean b3=testBL.removeTeam(kanpokoa);
+		       
 			}
 		}
-		
-		@Test
+	 
+	 @Test
 		//sut.createQuestion:  Pasatako kuota ez dago datu basean. The test fail
 		public void test5() {
+			String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("Futbola");
-				testDA.close();
+				
+				sport=testBL.kirolaSortu("Futbola");
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
-					oneDate = sdf.parse("12/12/2023");
+					oneDate = sdf.parse("12/12/2021");
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu("Eibar-Barca", oneDate, sport);
-				testDA.close();
+				
+				ev1=testBL.gertaeraSortu("Eibar-Barca", oneDate, sport);
+				
 				try {
-					que1=sut.createQuestion(ev1, "Irabazlea", 2);
+					que1=testBL.createQuestion2(ev1, "Irabazlea", 2);
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}
@@ -338,36 +321,37 @@ public class EmaitzakIpiniDABTest {
 				e.printStackTrace();
 			}finally {
 				//Remove the created objects in the database (cascade removing)   
-				testDA.open();
-				boolean a=testDA.kirolaEzabatu(sport);
-		        boolean b2=testDA.removeTeam(lokala);
-		        boolean b3=testDA.removeTeam(kanpokoa);
-		        testDA.close();
+				
+				boolean a=testBL.kirolaEzabatu(sport);
+		        boolean b2=testBL.removeTeam(lokala);
+		        boolean b3=testBL.removeTeam(kanpokoa);
+		        
 			}
 		}
-		
-		@Test
+
+	 
+	 @Test
 		//sut.createQuestion:  Pasatako kuota null da. The test fail
 		public void test6() {
 			//String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");
-				testDA.open();
-				sport=testDA.kirolaSortu("Futbola");
-				testDA.close();
+				
+				sport=testBL.kirolaSortu("Futbola");
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				Date oneDate=null;;
 				try {
-					oneDate = sdf.parse("12/12/2023");
+					oneDate = sdf.parse("12/12/2021");
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				testDA.open();
-				ev1=testDA.gertaeraSortu("Eibar-Barca", oneDate, sport);
-				testDA.close();
+				
+				ev1=testBL.gertaeraSortu("Eibar-Barca", oneDate, sport);
+				
 				try {
-					que1=sut.createQuestion(ev1, "Irabazlea", 2);
+					que1=testBL.createQuestion2(ev1, "Irabazlea", 2);
 				} catch (QuestionAlreadyExist e) {
 					fail();
 				}	
@@ -379,12 +363,11 @@ public class EmaitzakIpiniDABTest {
 			} catch (EventNotFinished e) {
 				e.printStackTrace();
 			}finally {
-				//Remove the created objects in the database (cascade removing)   
-				testDA.open();
-				boolean a=testDA.kirolaEzabatu(sport);
-		        boolean b2=testDA.removeTeam(lokala);
-		        boolean b3=testDA.removeTeam(kanpokoa);
-		        testDA.close();
+				//Remove the created objects in the database (cascade removing)   	
+				boolean a=testBL.kirolaEzabatu(sport);
+		        boolean b2=testBL.removeTeam(lokala);
+		        boolean b3=testBL.removeTeam(kanpokoa);
+		        
 			}
 		}
 }

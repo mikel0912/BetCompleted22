@@ -1,9 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -15,7 +17,6 @@ import javax.swing.SwingConstants;
 
 import businessLogic.BLFacade;
 import domain.User;
-import java.awt.Color;
 
 public class DiruaSartuGUI extends JFrame{
 	
@@ -74,7 +75,7 @@ public class DiruaSartuGUI extends JFrame{
 					
 					if(zenb>0.0) {
 						
-						businessLogic.DiruaSartu(user, zenb, "DiruaSartu");
+						businessLogic.DiruaSartu(user, zenb, new Date(),"DiruaSartu");
 						lblError.setVisible(true); 
 						lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("DiruCorrect"));
 						

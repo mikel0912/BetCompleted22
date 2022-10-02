@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import domain.Question;
 import domain.Registered;
 import domain.Sport;
 import domain.Team;
+import exceptions.QuestionAlreadyExist;
 
 public class TestDataAccess {
 	protected static  EntityManager  db;
@@ -310,6 +312,23 @@ public class TestDataAccess {
 			return true;
 		} else 
 		return false;
+	}
+	
+	public Question createQuestion2(Event event, String question, float betMinimum) throws  QuestionAlreadyExist {
+		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
+		
+			Event ev = db.find(Event.class, event.getEventNumber());
+			
+			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
+			
+			db.getTransaction().begin();
+			Question q = ev.addQuestion(question, betMinimum);
+			//db.persist(q);
+			db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
+							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+			db.getTransaction().commit();
+			return q;
+		
 	}
 
 }

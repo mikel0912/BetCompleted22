@@ -174,10 +174,11 @@ public class BLFacadeImplementation  implements BLFacade {
     	return b;
     }
     @WebMethod	
-    public void storeQuote(String forecast, Double Quote, Question question) throws QuoteAlreadyExist {
+    public Quote storeQuote(String forecast, Double Quote, Question question) throws QuoteAlreadyExist {
     	dbManager.open(false);
-    	dbManager.storeQuote(forecast, Quote, question);
+    	Quote q=dbManager.storeQuote(forecast, Quote, question);
     	dbManager.close();
+    	return q;
     }
     @WebMethod	
     public Collection<Question> findQuestion(Event event){
@@ -194,8 +195,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return v;
     }
     @WebMethod	
-    public void DiruaSartu(User u, Double dirua, String mota) {
-    	Date data = new Date();
+    public void DiruaSartu(User u, Double dirua, Date data,String mota) {
     	dbManager.open(false); 
     	dbManager.DiruaSartu(u, dirua, data, mota);
     	dbManager.close();
