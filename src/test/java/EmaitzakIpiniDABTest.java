@@ -34,12 +34,14 @@ public class EmaitzakIpiniDABTest {
 		static TestDataAccess testDA=new TestDataAccess();
 		
 		private Registered reg1;
+		private Registered reg2;
 		private Event ev1;
 		private Question que1;
 		private Question que2;
 		private Quote quo1;
 		private Quote quo2;
 		private Apustua apu1;
+		private Apustua apu2;
 		private Team lokala;
 		private Team kanpokoa;
 		private Sport sport;
@@ -54,13 +56,98 @@ public class EmaitzakIpiniDABTest {
 			que2=null;
 			quo2=null;
 			apu1=null;
+			apu2=null;
 			lokala=null;
 			kanpokoa=null;
 			sport=null;
+			reg1=null;
+			reg2=null;
 		} 
 		
 		@Test
-		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean
+		//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean eta apustu bat galdu denean. The test success
+		public void test1() {
+			String expected = "irabazita";
+			String expected2 = "irabazita";
+			String expected3 = "1";
+			String expected4 = "galduta";
+				lokala= new Team("Eibar");
+				kanpokoa = new Team("Barca");
+				testDA.open();
+				sport=testDA.kirolaSortu("F");
+				testDA.close();
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date oneDate=null;;
+				try {
+					oneDate = sdf.parse("12/12/2021");
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				testDA.open();
+				ev1=testDA.gertaeraSortu2("Eibar-Barca", oneDate, "F");
+				testDA.close();
+				try {
+					que1=sut.createQuestion(ev1, "Zeinek irabaziko du?", 2);
+					que2=sut.createQuestion(ev1, "Ansu Fati gola?", 2);
+				} catch (QuestionAlreadyExist e) {
+					fail();
+				}
+				try {
+					quo1=sut.storeQuote("1", 3.0, que1);
+					quo2=sut.storeQuote("X", 2.5, que1);
+				} catch (QuoteAlreadyExist e) {
+					fail();
+				}
+				Vector<Quote> quoteLista= new Vector<Quote>();
+				quoteLista.add(quo1);
+				testDA.open();
+				reg1=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
+				testDA.close();
+				sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
+				
+				sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
+				testDA.open();
+				Integer i = testDA.findMaxIDApustua();
+				apu1=testDA.findApustuaFromNumber(i);
+				testDA.close();
+				
+				testDA.open();
+				reg2=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
+				testDA.close();
+				sut.DiruaSartu(reg2, 10.0, oneDate, "DiruaSartu");
+				Vector<Quote> quoteLista2= new Vector<Quote>();
+				quoteLista2.add(quo2);
+				sut.ApustuaEgin(reg2, quoteLista2, 4.0, -1);
+				testDA.open();
+				Integer j = testDA.findMaxIDApustua();
+				apu2=testDA.findApustuaFromNumber(j);
+				testDA.close();
+				
+				//invoke System Under Test (sut)  
+			try {
+				sut.EmaitzakIpini(quo1);
+				System.out.println(apu2.getEgoera());
+				assertEquals(expected, apu1.getApustuAnitza().getEgoera());
+				assertEquals(expected2, apu1.getEgoera());
+				assertEquals(que1.getResult(), expected3);
+				assertEquals(expected4, apu2.getEgoera());
+				assertEquals(expected4, apu2.getApustuAnitza().getEgoera());
+			} catch (EventNotFinished e) {
+				e.printStackTrace();
+			}finally {
+				//Remove the created objects in the database (cascade removing) 
+				sut.apustuaEzabatu(reg1, apu1.getApustuAnitza());
+				sut.apustuaEzabatu(reg2, apu2.getApustuAnitza());
+				testDA.open();
+				boolean b=testDA.removeEvent2(ev1);
+				boolean b1=testDA.registerEzabatu(reg1);
+				boolean b2=testDA.registerEzabatu(reg2);
+		        testDA.close();
+			}
+		}
+		
+		@Test
+		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
 		public void test2() {
 			List<Apustua> expected = new ArrayList<Apustua>();
 			try {
