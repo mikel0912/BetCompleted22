@@ -894,13 +894,13 @@ public void open(boolean initializeMode){
 				}
 			}
 			if(b) {
-				db.getTransaction().begin();
 				String[] taldeak = description.split("-");
 				Team lokala = new Team(taldeak[0]);
 				Team kanpokoa = new Team(taldeak[1]);
 				Event e = new Event(description, eventDate, lokala, kanpokoa);
 				e.setSport(spo);
 				spo.addEvent(e);
+				db.getTransaction().begin();
 				db.persist(e);
 				db.getTransaction().commit();
 			}
