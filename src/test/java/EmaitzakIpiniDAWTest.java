@@ -150,6 +150,76 @@ public class EmaitzakIpiniDAWTest {
 	}
 	
 	@Test
+	//sut.createQuestion:  The event date is after than today
+	public void test5() {
+		String expected = "galduta";
+		String expected2 = "galduta";
+		String expected3 = "X";
+		
+			lokala= new Team("Eibar");
+			kanpokoa = new Team("Barca");
+			testDA.open();
+			sport=testDA.kirolaSortu("Football");
+			testDA.close();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date oneDate=null;;
+			try {
+				oneDate = sdf.parse("12/12/2021");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			//sut.gertaerakSortu("Eibar-Barca", oneDate, "Footbal");
+			testDA.open();
+			ev1=testDA.gertaeraSortu2("Eibar-Barca", oneDate, "Football");
+			testDA.close();
+			try {
+				que1=sut.createQuestion(ev1, "Zeinek irabaziko du?", 2);
+			} catch (QuestionAlreadyExist e) {
+				fail();
+			}
+			try {
+				quo1=sut.storeQuote("1", 3.0, que1);
+				quo2=sut.storeQuote("X", 2.5, que1);
+			} catch (QuoteAlreadyExist e) {
+				fail();
+			}
+			Vector<Quote> quoteLista= new Vector<Quote>();
+			quoteLista.add(quo1);
+			testDA.open();
+			reg1=testDA.storeRegistered("reg"+Math.random()*10, "123", 1234);
+			testDA.close();
+			sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
+			
+			sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
+			testDA.open();
+			Integer i = testDA.findMaxIDApustua();
+			apu1=testDA.findApustuaFromNumber(i);
+			testDA.close();
+			//invoke System Under Test (sut)  
+			try {
+			sut.EmaitzakIpini(quo2);
+			System.out.println(ev1.getSport());
+			System.out.println(sport.getEvents());
+			System.out.println(apu1.getKuota());
+			System.out.println(quo1.getApustuak());
+			System.out.println(apu1.getApostuaNumber());
+			System.out.println(apu1.getEgoera());
+			assertEquals(expected, apu1.getEgoera());
+			assertEquals(expected2, apu1.getApustuAnitza().getEgoera());
+			assertEquals(expected3, que1.getResult());
+		} catch (EventNotFinished e) {
+			e.printStackTrace();
+		}finally {
+			//Remove the created objects in the database (cascade removing) 
+			sut.apustuaEzabatu(reg1, apu1.getApustuAnitza());
+			testDA.open();
+			boolean b=testDA.removeEvent2(ev1);
+			boolean b1=testDA.registerEzabatu(reg1);
+	        testDA.close();
+		}
+	}
+	
+	@Test
 	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
 	public void test6() {
 		String expected = "jokoan";
