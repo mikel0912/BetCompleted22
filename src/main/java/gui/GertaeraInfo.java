@@ -40,6 +40,7 @@ public class GertaeraInfo extends JFrame{
 	private JLabel lblEvent;
 	private JLabel lblSport;
 	private JButton btnNewButton;
+	private String tahoma = "Tahoma";
 
 	public GertaeraInfo(Event ev) {
 	this.setSize(new Dimension(455, 390));
@@ -48,7 +49,7 @@ public class GertaeraInfo extends JFrame{
 	
 	lblTitle = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("GertaeraInfo"));
 	lblTitle.setBounds(10, 25, 421, 13);
-	lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	lblTitle.setFont(new Font(tahoma, Font.PLAIN, 14));
 	lblTitle.setForeground(Color.WHITE);
 	lblTitle.setBackground(Color.PINK);
 	lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -57,7 +58,7 @@ public class GertaeraInfo extends JFrame{
 	
 	lblDate = new JLabel();
 	lblDate.setBounds(24, 62, 387, 13);
-	lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+	lblDate.setFont(new Font(tahoma, Font.PLAIN, 12));
 	lblDate.setForeground(Color.PINK);
 	lblDate.setBackground(Color.WHITE);
 	lblDate.setOpaque(true);
@@ -108,13 +109,13 @@ public class GertaeraInfo extends JFrame{
 	lblEvent.setForeground(Color.PINK);
 	lblEvent.setOpaque(true);
 	lblEvent.setHorizontalAlignment(SwingConstants.CENTER);
-	lblEvent.setFont(new Font("Tahoma", Font.PLAIN, 12));
+	lblEvent.setFont(new Font(tahoma, Font.PLAIN, 12));
 	lblEvent.setBounds(24, 43, 387, 13);
 	getContentPane().add(lblEvent);
 	lblEvent.setText(ev.toString());
 	
 	lblSport = new JLabel(businessLogic.findSport(ev).getIzena());
-	lblSport.setFont(new Font("Tahoma", Font.PLAIN, 12));
+	lblSport.setFont(new Font(tahoma, Font.PLAIN, 12));
 	lblSport.setOpaque(true);
 	lblSport.setForeground(Color.PINK);
 	lblSport.setBackground(Color.WHITE);
