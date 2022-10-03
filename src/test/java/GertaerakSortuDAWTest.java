@@ -59,7 +59,7 @@ public class GertaerakSortuDAWTest {
 			assertTrue(!sortuta);
 
 		}catch(IllegalArgumentException e1) {
-			assertTrue(false);
+			fail();
 		} finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
@@ -71,14 +71,14 @@ public class GertaerakSortuDAWTest {
 				testDA.close();
 				if(b && b1) {
 					System.out.println("Gertaera ezabatuta (finaly) "+b);
-					assertTrue(b && b1);
+					fail();
 				}else {
 					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b);
-					assertTrue(b && b1);
+					fail();
 				}
 			}else {
 				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
-				assertEquals(sortuta, false);
+				assertTrue(!sortuta);
 			}
 
 		}
@@ -110,7 +110,7 @@ public class GertaerakSortuDAWTest {
 			assertTrue(sortuta);
 
 		}catch(NullPointerException e1) {
-			assertTrue(false);
+			fail();
 		} finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
@@ -124,11 +124,11 @@ public class GertaerakSortuDAWTest {
 					assertTrue(b);
 				}else {
 					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b);
-					assertTrue(b);
+					fail();
 				}
 			}else {
 				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
-				assertTrue(false);
+				fail();
 			}	         
 		}
 	}
@@ -161,7 +161,7 @@ public class GertaerakSortuDAWTest {
 			assertTrue(sortuta);
 
 		}catch(NullPointerException e1) {
-			assertTrue(false);
+			fail();
 		} finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
@@ -177,11 +177,11 @@ public class GertaerakSortuDAWTest {
 					assertTrue(b && b1 && b2);
 				}else {
 					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b);
-					assertTrue(b && b1 && b2);
+					fail();
 				}
 			}else {
 				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
-				assertTrue(false);
+				fail();
 			}	         
 		}
 	}
@@ -190,6 +190,7 @@ public class GertaerakSortuDAWTest {
 	//sut.gertaerakSortu:  The are events in the DB. There is one with the same description. The test fail
 	public void test4() {
 		Event ev1= null;
+		Boolean sortuta= false;
 		try {
 			//define paramaters
 			description = "Ermua-Eibar";
@@ -207,7 +208,7 @@ public class GertaerakSortuDAWTest {
 			testDA.close();
 
 			//invoke System Under Test (sut)  
-			Boolean sortuta =sut.gertaerakSortu(description, data, sport.getIzena());
+			sortuta =sut.gertaerakSortu(description, data, sport.getIzena());
 			//verify the results
 			assertTrue(!sortuta);
 
@@ -219,19 +220,32 @@ public class GertaerakSortuDAWTest {
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
 			if((ev.getDescription().equals(description)) && (ev.getEventDate().equals(data)) && (ev.getSport().getIzena().equals(sport.getIzena()))){
-				boolean b=testDA.removeEvent2(ev);
-				boolean b1 = testDA.removeEvent(ev1);
-				testDA.close();
-				if(b && b1) {
-					System.out.println("Gertaera ezabatuta (finaly) "+b);
-					assertTrue(b && b1);
+				if(!sortuta) {
+					boolean b=testDA.removeEvent2(ev);
+					testDA.close();
+					if(b) {
+						System.out.println("testDA gertaera ezabatuta (finaly) "+b);
+						assertTrue(!sortuta);
+					}else {
+						System.out.println("testDA gertaera ez zegoen sortuta (finaly) "+b);
+						fail();
+					}
 				}else {
-					System.out.println("Gertaera ez zegoen sortuta (finaly) "+b+b1);
-					assertTrue(true);
+					boolean b=testDA.removeEvent2(ev);
+					boolean b1 = testDA.removeEvent(ev1);
+					testDA.close();
+					if(b && b1) {
+						System.out.println("Gertaera eta TestDA ezabatuta (finaly) "+b+b1);
+						fail();
+					}else {
+						System.out.println("Gertaera edo TestDA ez zegoen sortuta (finaly) "+b+b1);
+						fail();
+					}
 				}
+
 			}else {
-				System.out.println("Gertaera ez zegoen sortuta (finaly) ");
-				assertTrue(false);
+				System.out.println("TestDA ez zegoen sortuta (finaly) ");
+				fail();
 			}	         
 		}
 	}
