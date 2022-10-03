@@ -109,12 +109,16 @@ public class EmaitzakIpiniINTTest {
 				//invoke System Under Test (sut)  
 			try {
 				sut.EmaitzakIpini(quo1);
-				System.out.println(apu2.getEgoera());
+				apu1=testBL.findApustuaFromNumber(i);
+				apu2=testBL.findApustuaFromNumber(j);
+				Integer k = testBL.findMaxIDQuestion();
+				que1=testBL.findQuestionFromNumber(k-1);
 				assertEquals(expected, apu1.getApustuAnitza().getEgoera());
 				assertEquals(expected2, apu1.getEgoera());
 				assertEquals(que1.getResult(), expected3);
 				assertEquals(expected4, apu2.getEgoera());
 				assertEquals(expected4, apu2.getApustuAnitza().getEgoera());
+				
 			} catch (EventNotFinished e) {
 				e.printStackTrace();
 			}finally {
@@ -220,8 +224,14 @@ public class EmaitzakIpiniINTTest {
 				//invoke System Under Test (sut)  
 				try {
 				sut.EmaitzakIpini(quo1);
+				apu1=testBL.findApustuaFromNumber(i);
+				apu2=testBL.findApustuaFromNumber(i-1);
+				Integer k = testBL.findMaxIDQuestion();
+				que1=testBL.findQuestionFromNumber(k-1);
+				System.out.println(k+que1.getResult());
 				assertEquals(expected, apu1.getApustuAnitza().getEgoera());
-				assertEquals(expected2, apu1.getEgoera());
+				assertEquals(expected2, apu2.getEgoera());
+				assertEquals(expected, apu1.getEgoera());
 				assertEquals(que1.getResult(), expected3);
 			} catch (EventNotFinished e) {
 				e.printStackTrace();

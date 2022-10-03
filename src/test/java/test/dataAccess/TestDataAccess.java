@@ -330,6 +330,18 @@ public class TestDataAccess {
 			return q;
 		
 	}
+	
+	public int findMaxIDQuestion() {
+		String sql = "SELECT MAX(questionNumber) AS apustua_num FROM Question";
+		Query m = db.createQuery(sql);
+		int value = (int) m.getSingleResult();
+		System.out.println(value);
+		return value;
+	}
+	public Question findQuestionFromNumber(int i){
+		Question e = db.find(Question.class, i);
+		return e; 
+	}
 
 }
 

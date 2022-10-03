@@ -40,6 +40,7 @@ public class EmaitzakIpiniDAWTest {
 	private Quote quo1;
 	private Quote quo2;
 	private Apustua apu1;
+	private Apustua apu2;
 	private Team lokala;
 	private Team kanpokoa;
 	private Sport sport;
@@ -53,6 +54,7 @@ public class EmaitzakIpiniDAWTest {
 		quo1=null;
 		quo2=null;
 		apu1=null;
+		apu2=null;
 		lokala=null;
 		kanpokoa=null;
 		sport=null;
@@ -109,6 +111,7 @@ public class EmaitzakIpiniDAWTest {
 	//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
 	public void test3() {
 		List<Apustua> expected = new ArrayList<Apustua>();
+		String expected2 = "1";
 		try {
 			lokala= new Team("Eibar");
 			kanpokoa = new Team("Barca");
@@ -138,9 +141,8 @@ public class EmaitzakIpiniDAWTest {
 		
 			//invoke System Under Test (sut)  
 			sut.EmaitzakIpini(quo1);
-			System.out.println(quo1.getApustuak());
-			System.out.println(expected);
 			assertEquals(expected, quo1.getApustuak());
+			assertEquals(expected2, que1.getResult());
 		} catch (EventNotFinished e) {
 			e.printStackTrace();
 		}finally {
@@ -152,6 +154,7 @@ public class EmaitzakIpiniDAWTest {
 	        testDA.close();
 		}
 	}
+	
 	
 	@Test
 	//sut.createQuestion:  Parametro bezala sartutako kuotaren questionak galdutako apustu bat gutxienez duenean eta irabazlerik ez. The test success
@@ -195,19 +198,13 @@ public class EmaitzakIpiniDAWTest {
 			sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
 			
 			sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
-			testDA.open();
-			Integer i = testDA.findMaxIDApustua();
-			apu1=testDA.findApustuaFromNumber(i);
-			testDA.close();
-			//invoke System Under Test (sut)  
+			//invoke System Under Test (sut)
 			try {
 			sut.EmaitzakIpini(quo2);
-			System.out.println(ev1.getSport());
-			System.out.println(sport.getEvents());
-			System.out.println(apu1.getKuota());
-			System.out.println(quo1.getApustuak());
-			System.out.println(apu1.getApostuaNumber());
-			System.out.println(apu1.getEgoera());
+			testDA.open();
+			Integer j = testDA.findMaxIDApustua();
+			apu1=testDA.findApustuaFromNumber(j);
+			testDA.close();			
 			assertEquals(expected, apu1.getEgoera());
 			assertEquals(expected2, apu1.getApustuAnitza().getEgoera());
 			assertEquals(expected3, que1.getResult());
@@ -222,6 +219,7 @@ public class EmaitzakIpiniDAWTest {
 	        testDA.close();
 		}
 	}
+	
 	
 	@Test
 	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
@@ -265,15 +263,17 @@ public class EmaitzakIpiniDAWTest {
 			sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
 			
 			sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
-			testDA.open();
-			Integer i = testDA.findMaxIDApustua();
-			apu1=testDA.findApustuaFromNumber(i);
-			testDA.close();
 			//invoke System Under Test (sut)  
 			try {
 			sut.EmaitzakIpini(quo1);
+			testDA.open();
+			Integer j= testDA.findMaxIDApustua();
+			apu1=testDA.findApustuaFromNumber(j);
+			apu2=testDA.findApustuaFromNumber(j-1);
+			testDA.close();
 			assertEquals(expected, apu1.getApustuAnitza().getEgoera());
-			assertEquals(expected2, apu1.getEgoera());
+			assertEquals(expected2, apu2.getEgoera());
+			assertEquals(expected, apu1.getEgoera());
 			assertEquals(que1.getResult(), expected3);
 		} catch (EventNotFinished e) {
 			e.printStackTrace();
@@ -286,7 +286,7 @@ public class EmaitzakIpiniDAWTest {
 	        testDA.close();
 		}
 	}
-	
+			
 	@Test
 	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean. The test success
 	public void test7() {
@@ -328,13 +328,13 @@ public class EmaitzakIpiniDAWTest {
 			sut.DiruaSartu(reg1, 10.0, oneDate, "DiruaSartu");
 			
 			sut.ApustuaEgin(reg1, quoteLista, 5.0, -1);
-			testDA.open();
-			Integer i = testDA.findMaxIDApustua();
-			apu1=testDA.findApustuaFromNumber(i);
-			testDA.close();
 			//invoke System Under Test (sut)  
 			try {
 			sut.EmaitzakIpini(quo1);
+			testDA.open();
+			Integer j = testDA.findMaxIDApustua();
+			apu1=testDA.findApustuaFromNumber(j);
+			testDA.close();
 			assertEquals(expected, apu1.getApustuAnitza().getEgoera());
 			assertEquals(expected2, apu1.getEgoera());
 			assertEquals(que1.getResult(), expected3);

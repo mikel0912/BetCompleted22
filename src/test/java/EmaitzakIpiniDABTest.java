@@ -126,7 +126,10 @@ public class EmaitzakIpiniDABTest {
 				//invoke System Under Test (sut)  
 			try {
 				sut.EmaitzakIpini(quo1);
-				System.out.println(apu2.getEgoera());
+				testDA.open();
+				apu1=testDA.findApustuaFromNumber(i);
+				apu2=testDA.findApustuaFromNumber(j);
+				testDA.close();
 				assertEquals(expected, apu1.getApustuAnitza().getEgoera());
 				assertEquals(expected2, apu1.getEgoera());
 				assertEquals(que1.getResult(), expected3);
@@ -147,7 +150,7 @@ public class EmaitzakIpiniDABTest {
 		}
 		
 		@Test
-		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
+		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean
 		public void test2() {
 			List<Apustua> expected = new ArrayList<Apustua>();
 			try {
@@ -243,8 +246,14 @@ public class EmaitzakIpiniDABTest {
 				//invoke System Under Test (sut)  
 				try {
 				sut.EmaitzakIpini(quo1);
+				testDA.open();
+				Integer j= testDA.findMaxIDApustua();
+				apu1=testDA.findApustuaFromNumber(j);
+				apu2=testDA.findApustuaFromNumber(j-1);
+				testDA.close();
 				assertEquals(expected, apu1.getApustuAnitza().getEgoera());
-				assertEquals(expected2, apu1.getEgoera());
+				assertEquals(expected2, apu2.getEgoera());
+				assertEquals(expected, apu1.getEgoera());
 				assertEquals(que1.getResult(), expected3);
 			} catch (EventNotFinished e) {
 				e.printStackTrace();
@@ -259,7 +268,7 @@ public class EmaitzakIpiniDABTest {
 		}
 		
 		@Test
-		//sut.createQuestion:  The event date is after than today. The test fail
+		//sut.createQuestion:  The event date is after than today
 		public void test4() {
 			String expected = "Data gaurkoa baina altuagoa da";
 			try {
@@ -305,8 +314,9 @@ public class EmaitzakIpiniDABTest {
 		}
 		
 		@Test
-		//sut.createQuestion:  Pasatako kuota ez dago datu basean. The test fail
+		//sut.createQuestion:  The event date is after than today
 		public void test5() {
+			String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
 				kanpokoa = new Team("Barca");

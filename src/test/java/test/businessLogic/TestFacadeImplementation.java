@@ -118,5 +118,19 @@ public class TestFacadeImplementation {
 			dbManagerTest.close();
 			return q;
 		}
+		
+		public int findMaxIDQuestion() {
+			dbManagerTest.open();
+			Integer q= dbManagerTest.findMaxIDQuestion();
+			dbManagerTest.close();
+			return q;
+		}
+		
+		public Question findQuestionFromNumber(int i) {
+			dbManagerTest.open();
+			Question q = dbManagerTest.findQuestionFromNumber(i);
+			dbManagerTest.close();
+			return q;
+		}
 
 }
