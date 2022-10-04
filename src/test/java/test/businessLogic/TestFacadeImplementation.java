@@ -3,6 +3,8 @@ package test.businessLogic;
 
 import java.util.Date;
 
+import javax.persistence.Query;
+
 import configuration.ConfigXML;
 import domain.Apustua;
 import domain.Event;
@@ -54,6 +56,19 @@ public class TestFacadeImplementation {
 			Sport s=dbManagerTest.kirolaSortu(desc);
 			dbManagerTest.close();
 			return s;
+		}
+		
+		public int findMaxID() {
+			dbManagerTest.open();
+			int idmax =dbManagerTest.findMaxID();
+			dbManagerTest.close();
+			return idmax;
+		}
+		public Event findEventFromNumber(int i){
+			dbManagerTest.open();
+			Event e=dbManagerTest.findEventFromNumber(i);
+			dbManagerTest.close();
+			return e;
 		}
 		
 		public Event gertaeraSortu(String description,Date eventDate, Sport sport) {
