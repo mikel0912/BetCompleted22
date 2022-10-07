@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 public class Registered extends User implements Serializable{
 	private Double dirukop;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private Vector<Transaction> transakzioak; 
+	private List<Transaction> transakzioak; 
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Vector<ApustuAnitza> apustuAnitzak; 
 	private Double irabazitakoa;
@@ -49,11 +50,11 @@ public class Registered extends User implements Serializable{
 		super();
 	}
 	
-	public Vector<Transaction> getTransakzioak() {
+	public List<Transaction> getTransakzioak() {
 		return transakzioak;
 	}
 
-	public void setTransakzioak(Vector<Transaction> transakzioak) {
+	public void setTransakzioak(List<Transaction> transakzioak) {
 		this.transakzioak = transakzioak;
 	}
 	
