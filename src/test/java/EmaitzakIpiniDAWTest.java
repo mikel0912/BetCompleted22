@@ -96,7 +96,7 @@ public class EmaitzakIpiniDAWTest {
 			sut.EmaitzakIpini(quo1);
 		} catch (EventNotFinished e) {
 			String msg= e.getMessage();
-			assertTrue(msg.compareTo(expected)==0);
+			assertEquals(expected, msg);
 		}finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
