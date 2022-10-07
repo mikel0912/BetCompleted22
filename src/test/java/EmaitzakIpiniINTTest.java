@@ -59,7 +59,7 @@ public class EmaitzakIpiniINTTest {
 		}
 	 
 	 @Test
-		//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean eta apustu bat galdu denean. The test success
+		//sut.EmaitzakIpini:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean eta apustu bat galdu denean. The test success
 		public void test1() {
 			String expected = "irabazita";
 			String expected2 = "irabazita";
@@ -132,7 +132,7 @@ public class EmaitzakIpiniINTTest {
 		}
 	 
 	 @Test
-		//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
+		//sut.EmaitzakIpini:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
 		public void test2() {
 			List<Apustua> expected = new ArrayList<Apustua>();
 			try {
@@ -174,7 +174,7 @@ public class EmaitzakIpiniINTTest {
 		}
 	 
 	 @Test
-		//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
+		//sut.EmaitzakIpini:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
 		public void test3() {
 			String expected = "jokoan";
 			String expected2 = "irabazita";
@@ -246,8 +246,52 @@ public class EmaitzakIpiniINTTest {
 		}
 	 
 	 @Test
-		//sut.createQuestion:  The event date is after than today. The test fail
+		//sut.EmaitzakIpini:  Parametro bezala sartutako kuotaren galderak iadanik erantzuna ipinita duenean. The test success
 		public void test4() {
+		 String expected = "1";
+			try {
+				lokala= new Team("Eibar");
+				kanpokoa = new Team("Barca");
+				sport=testBL.kirolaSortu("Futbola");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date oneDate=null;;
+				try {
+					oneDate = sdf.parse("12/12/2020");
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				ev1=testBL.gertaeraSortu("Eibar-Barca", oneDate, sport);
+				try {
+					que1=testBL.createQuestion2(ev1, "Irabazlea", 2);
+				} catch (QuestionAlreadyExist e) {
+					fail();
+				}
+				try {
+					quo1=sut.storeQuote("1", 3.0, que1);
+					quo2=sut.storeQuote("X", 2.5, que1);
+				} catch (QuoteAlreadyExist e) {
+					fail();
+				}
+			
+				//invoke System Under Test (sut)  
+				sut.EmaitzakIpini(quo1);
+				sut.EmaitzakIpini(quo2);
+				Integer i=testBL.findMaxIDQuestion();
+				Question que=testBL.findQuestionFromNumber(i);
+				assertEquals(expected, que.getResult());
+			} catch (EventNotFinished e) {
+				e.printStackTrace();
+			}finally {
+				//Remove the created objects in the database (cascade removing)   
+				boolean a=testBL.kirolaEzabatu(sport);
+		        boolean b2=testBL.removeTeam(lokala);
+		        boolean b3=testBL.removeTeam(kanpokoa);
+			}
+		}
+	 
+	 @Test
+		//sut.EmaitzakIpini:  The event date is after than today. The test fail
+		public void test5() {
 		 String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
@@ -297,8 +341,8 @@ public class EmaitzakIpiniINTTest {
 		}
 	 
 	 @Test
-		//sut.createQuestion:  Pasatako kuota ez dago datu basean. The test fail
-		public void test5() {
+		//sut.EmaitzakIpini:  Pasatako kuota ez dago datu basean. The test fail
+		public void test6() {
 			String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");
@@ -341,8 +385,8 @@ public class EmaitzakIpiniINTTest {
 
 	 
 	 @Test
-		//sut.createQuestion:  Pasatako kuota null da. The test fail
-		public void test6() {
+		//sut.EmaitzakIpini:  Pasatako kuota null da. The test fail
+		public void test7() {
 			//String expected = "Data gaurkoa baina altuagoa da";
 			try {
 				lokala= new Team("Eibar");

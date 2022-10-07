@@ -62,7 +62,7 @@ public class EmaitzakIpiniDAWTest {
 	} 
 	
 	@Test
-	//sut.createQuestion:  The event date is after than today. The test fail
+	//sut.EmaitzakIpini:  The event date is after than today. The test fail
 	public void test1() {
 		String expected = "Data gaurkoa baina altuagoa da";
 		try {
@@ -108,7 +108,7 @@ public class EmaitzakIpiniDAWTest {
 	}
 	
 	@Test
-	//sut.createQuestion:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
+	//sut.EmaitzakIpini:  Parametro bezala sartutako kuotaren galderaren kuota guztiek apusturik ez dituztenean. The test success
 	public void test3() {
 		List<Apustua> expected = new ArrayList<Apustua>();
 		String expected2 = "1";
@@ -157,7 +157,7 @@ public class EmaitzakIpiniDAWTest {
 	
 	
 	@Test
-	//sut.createQuestion:  Parametro bezala sartutako kuotaren questionak galdutako apustu bat gutxienez duenean eta irabazlerik ez. The test success
+	//sut.EmaitzakIpini:  Parametro bezala sartutako kuotaren questionak galdutako apustu bat gutxienez duenean eta irabazlerik ez. The test success
 	public void test5() {
 		String expected = "galduta";
 		String expected2 = "galduta";
@@ -222,7 +222,7 @@ public class EmaitzakIpiniDAWTest {
 	
 	
 	@Test
-	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
+	//sut.EmaitzakIpini:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri ez direnean. The test success
 	public void test6() {
 		String expected = "jokoan";
 		String expected2 = "irabazita";
@@ -288,7 +288,7 @@ public class EmaitzakIpiniDAWTest {
 	}
 			
 	@Test
-	//sut.createQuestion:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean. The test success
+	//sut.EmaitzakIpini:  Parametro bezala sartutako quote duen apustu baten apustu anitzaren emaitza guztiak jarri direnean eta denak irabazi direnean. The test success
 	public void test7() {
 		String expected = "irabazita";
 		String expected2 = "irabazita";
