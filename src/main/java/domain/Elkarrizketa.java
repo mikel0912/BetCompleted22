@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -30,7 +31,7 @@ public class Elkarrizketa implements Serializable{
 	@XmlIDREF
 	private User user2;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private Vector<Message> messages = new Vector<Message>();
+	private ArrayList<Message> messages = new ArrayList<Message>();
 	
 	public Elkarrizketa() {
 		super();
@@ -69,11 +70,11 @@ public class Elkarrizketa implements Serializable{
 		this.data = data;
 	}
 
-	public Vector<Message> getMessages() {
+	public ArrayList<Message> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(Vector<Message> messages) {
+	public void setMessages(ArrayList<Message> messages) {
 		this.messages = messages;
 	}
 	
