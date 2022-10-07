@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -19,10 +18,9 @@ import test.dataAccess.TestDataAccess;
 
 public class GertaerakSortuDABTest {
 
-	//sut:system under test
+
 	static DataAccessInterface sut=new DataAccess();
 
-	//additional operations needed to execute the test 
 	static TestDataAccess testDA=new TestDataAccess();
 
 
@@ -57,16 +55,13 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
-			//invoke System Under Test (sut)  
 			sortuta = sut.gertaerakSortu(description, data, sport.getIzena());
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
-		} finally {
-			//Remove the created objects in the database (cascade removing)   
+		} finally {  
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -95,7 +90,6 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 			testDA.open();
@@ -106,17 +100,14 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			//invoke System Under Test (sut)  
+			}	 
 			sortuta = sut.gertaerakSortu(description, data, sport.getIzena());
 			assertTrue(!sortuta);
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
-		} finally {
-			//Remove the created objects in the database (cascade removing)   
+		} finally {   
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -146,17 +137,14 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			//invoke System Under Test (sut)  
+			}	 
 			sortuta = sut.gertaerakSortu(description, data, sportizen);
 			assertTrue(!sortuta);
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
 		} finally {
-			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -196,17 +184,14 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			//invoke System Under Test (sut)  
+			}	 
 			sortuta = sut.gertaerakSortu(description, data, sport.getIzena());
 			assertTrue(!sortuta);
 		}catch(IndexOutOfBoundsException e1) {
 			System.out.println(e1.getMessage());
 			fail();
 		} finally {
-			//Remove the created objects in the database (cascade removing)   
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -247,16 +232,13 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2000");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
-			//invoke System Under Test (sut)  
 			sortuta = sut.gertaerakSortu(description, data, sport.getIzena());
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
-		} finally {
-			//Remove the created objects in the database (cascade removing)   
+		} finally { 
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -295,17 +277,14 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			//invoke System Under Test (sut)  
+			}		  
 			sortuta = sut.gertaerakSortu(null, data, sport.getIzena());
 			assertTrue(!sortuta);
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
-		} finally {
-			//Remove the created objects in the database (cascade removing)   
+		} finally { 
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -334,10 +313,8 @@ public class GertaerakSortuDABTest {
 			try {
 				data = sdf.parse("05/12/2022");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			//invoke System Under Test (sut)  
+			} 
 			sortuta= sut.gertaerakSortu(description, data, null);
 			assertTrue(!sortuta);
 		}catch(NullPointerException e1) {
@@ -345,8 +322,7 @@ public class GertaerakSortuDABTest {
 		}catch(IllegalArgumentException e2) {
 			System.out.println(e2.getMessage());
 			fail();
-		}finally {
-			//Remove the created objects in the database (cascade removing)   
+		}finally { 
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
@@ -371,14 +347,12 @@ public class GertaerakSortuDABTest {
 			testDA.open();
 			sport=testDA.kirolaSortu("Jaurtiketa");
 			testDA.close();
-			//invoke System Under Test (sut)  
 			sortuta= sut.gertaerakSortu(description, null, sport.getIzena());
 			assertTrue(!sortuta);
 		}catch(NullPointerException e1) {
 			System.out.println(e1.getMessage());
 			fail();
-		}finally {
-			//Remove the created objects in the database (cascade removing)   
+		}finally { 
 			testDA.open();
 			int number = testDA.findMaxID();
 			Event ev = testDA.findEventFromNumber(number);
