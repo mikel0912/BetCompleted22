@@ -36,10 +36,8 @@ public class Message implements Serializable{
 		super();
 		this.igorlea=igorlea;
 		this.hartzailea=hartzailea;
-		//this.asunto=asunto;
 		this.testua=testua;
 		this.irakurrita=false;
-		//this.elkarrizketa=new Vector<Message>();
 		this.elkarrizketa=null;
 	}
 

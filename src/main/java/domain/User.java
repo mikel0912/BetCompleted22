@@ -37,7 +37,7 @@ public abstract class User implements Serializable{
 		this.bankAccount = bankAccount;
 	}
 	
-	public User() {
+	protected User() {
 		super();
 	}
 
