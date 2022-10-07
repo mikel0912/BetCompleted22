@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 import businessLogic.BLFacade;
 import domain.Registered;
 import domain.User;
-import javax.swing.JTextField;
 
 public class JarraituGUI extends JFrame{
 	private BLFacade businessLogic = MainGUI.getBusinessLogic();

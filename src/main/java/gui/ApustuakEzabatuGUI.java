@@ -27,8 +27,7 @@ public class ApustuakEzabatuGUI extends JFrame{
 	private User user;
 
 	private JComboBox comboBox;
-	//DefaultComboBoxModel<ApustuaContainer> modelApustua = new DefaultComboBoxModel<ApustuaContainer>();
-
+	
 	private JButton jButtonClose;
 
 	private JButton jButtonEzabatu;
@@ -66,10 +65,6 @@ public class ApustuakEzabatuGUI extends JFrame{
 			}
 		}
 		getContentPane().add(comboBox);
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
 		
 		jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));

@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import businessLogic.BLFacade;
-import domain.Registered;
 import domain.Team;
 import domain.User;
 

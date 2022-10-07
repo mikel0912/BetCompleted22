@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import businessLogic.BLFacade;
 import domain.Elkarrizketa;
-import domain.Message;
 import domain.User;
 
 public class MezuakBidaliGUI extends JFrame{

@@ -21,7 +21,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import businessLogic.BLFacade;
-import domain.Elkarrizketa;
 import domain.ElkarrizketaContainer;
 import domain.ElkarrizketaRenderer;
 import domain.User;

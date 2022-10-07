@@ -3,10 +3,12 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -16,11 +18,6 @@ import javax.swing.SwingConstants;
 import businessLogic.BLFacade;
 import domain.Transaction;
 import domain.User;
-import javax.swing.JScrollBar;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MugimenduakBistaratuGUI extends JFrame{
 

@@ -21,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 
 import businessLogic.BLFacade;
 import domain.Event;
-import exceptions.EventFinished;
 
 public class GertaerakKopiatuGUI extends JFrame{
 	private static final long serialVersionUID = 1L;

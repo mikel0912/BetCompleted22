@@ -20,7 +20,6 @@ import javax.swing.event.ListSelectionListener;
 
 import businessLogic.BLFacade;
 import domain.Elkarrizketa;
-import domain.Message;
 import domain.MezuakContainer;
 import domain.MezuakRenderer;
 import domain.User;
