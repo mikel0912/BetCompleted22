@@ -1,12 +1,13 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class ElkarrizketaContainer {
 	private Elkarrizketa elka;
 	private User lehenIgorle;
 	private User lehenHartzailea;
-	private Vector<Message> message;
+	private ArrayList<Message> message;
 	
 	public ElkarrizketaContainer() {
 		this.elka=null;
@@ -38,11 +39,11 @@ public class ElkarrizketaContainer {
 		this.lehenHartzailea = lehenHartzailea;
 	}
 
-	public Vector<Message> getMessage() {
+	public ArrayList<Message> getMessage() {
 		return message;
 	}
 
-	public void setMessage(Vector<Message> message) {
+	public void setMessage(ArrayList<Message> message) {
 		this.message = message;
 	}
 
