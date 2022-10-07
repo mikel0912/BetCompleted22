@@ -224,7 +224,7 @@ public class GertaerakSortuDABTest {
 	}
 	
 	@Test
-	//sut.gertaerakSortu:  There date is passed. The test must fail, but success
+	//sut.gertaerakSortu:  There date is before todays date. The test must fail, but success
 	public void test5() {
 		Event ev1 = null;
 		Boolean sortuta = false;
