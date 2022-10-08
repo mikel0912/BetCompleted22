@@ -778,7 +778,6 @@ public class DataAccess implements DataAccessInterface {
 			
 			db.getTransaction().begin();
 			Question q = ev.addQuestion(question, betMinimum);
-			//db.persist(q);
 			db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
 							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 			db.getTransaction().commit();
@@ -911,8 +910,6 @@ public void open(boolean initializeMode){
 	}
 	
 	public Quote storeQuote(String forecast, Double Quote, Question question) throws QuoteAlreadyExist {
-		//System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
-		
 		Question q = db.find(Question.class, question.getQuestionNumber());
 		
 		if (q.doesQuoteExist(forecast)) throw new QuoteAlreadyExist("Kuota existitzen da");
@@ -1065,20 +1062,20 @@ public void open(boolean initializeMode){
 	}
 	
 	public List<Apustua> findApustua(User u){
-		Registered user = (Registered) db.find(User.class, u.getUsername()); 
+		db.find(User.class, u.getUsername()); 
 		TypedQuery<Apustua> Aquery = db.createQuery("SELECT a FROM Apustua a WHERE a.getUser().getUsername() =?1 ", Apustua.class);
 		Aquery.setParameter(1, u.getUsername());
 		return Aquery.getResultList();
 	}
 	public List<ApustuAnitza> findApustuAnitza(User u){
-		Registered user = (Registered) db.find(User.class, u.getUsername()); 
+		db.find(User.class, u.getUsername()); 
 		TypedQuery<ApustuAnitza> Aquery = db.createQuery("SELECT aa FROM ApustuAnitza aa WHERE aa.getUser().getUsername() =?1 ", ApustuAnitza.class);
 		Aquery.setParameter(1, u.getUsername());
 		return Aquery.getResultList();
 	}
 	
 	public List<Transaction> findTransakzioak(User u){
-		Registered user = (Registered) db.find(User.class, u.getUsername()); 
+		db.find(User.class, u.getUsername()); 
 		TypedQuery<Transaction> Tquery = db.createQuery("SELECT t FROM Transaction t WHERE t.getErabiltzailea().getUsername() =?1 ", Transaction.class);
 		Tquery.setParameter(1, u.getUsername());
 		return Tquery.getResultList();
@@ -1087,7 +1084,7 @@ public void open(boolean initializeMode){
 	
 	public void ApustuaIrabazi(ApustuAnitza apustua) {
 		ApustuAnitza apustuAnitza = db.find(ApustuAnitza.class, apustua.getApustuAnitzaNumber());
-		Registered reg = (Registered) apustuAnitza.getUser();
+		Registered reg =  apustuAnitza.getUser();
 		Registered r = (Registered) db.find(User.class, reg.getUsername());
 		db.getTransaction().begin();
 		apustuAnitza.setEgoera("irabazita");

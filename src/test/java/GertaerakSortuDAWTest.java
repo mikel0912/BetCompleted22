@@ -213,7 +213,7 @@ public class GertaerakSortuDAWTest {
 			assertTrue(!sortuta);
 
 		}catch(NullPointerException e1) {
-			assertTrue(false);
+			fail();
 		} finally {
 			//Remove the created objects in the database (cascade removing)   
 			testDA.open();

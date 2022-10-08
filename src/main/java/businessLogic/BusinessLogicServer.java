@@ -28,9 +28,6 @@ import java.awt.event.WindowEvent;
  */
 public class BusinessLogicServer extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	JTextArea textArea;
@@ -74,9 +71,6 @@ public class BusinessLogicServer extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						textArea.append("\n\n\nClosing the server... ");
-					    
-							//server.close();
-						
 						System.exit(1);
 					}
 				});

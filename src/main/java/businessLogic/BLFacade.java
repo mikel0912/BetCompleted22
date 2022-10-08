@@ -1,6 +1,5 @@
 package businessLogic;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +15,6 @@ import domain.ElkarrizketaContainer;
 import domain.Event;
 import domain.Message;
 import domain.MezuakContainer;
-//import domain.Booking;
 import domain.Question;
 import domain.Quote;
 import domain.Registered;

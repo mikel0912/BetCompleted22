@@ -222,14 +222,7 @@ public class BLFacadeImplementation  implements BLFacade {
     	dbManager.close();
     	return a;
     }
-    /*
-    @WebMethod	
-    public List<ApustuaContainer> findApustuaContainer(User u){
-    	dbManager.open(false);
-    	List<ApustuaContainer> a = dbManager.findApustuaContainer(u); 
-    	dbManager.close();
-    	return a; 
-    }*/
+
     @WebMethod	
     public void apustuaEzabatu(User user1, ApustuAnitza apustua) {
     	dbManager.open(false);

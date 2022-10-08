@@ -350,7 +350,7 @@ public class GertaerakSortuINTTest {
 			ev1= testBL.gertaeraSortu("Ermua-Soraluze", data, sport);
 			number1 = testBL.findMaxID();
 			try {
-				data = sdf.parse("04/10/2022");
+				data = sdf.parse("08/10/2022");//gaurko data
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
