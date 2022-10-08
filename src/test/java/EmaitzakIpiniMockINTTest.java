@@ -34,6 +34,10 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
+			doAnswer((i) -> {
+				assertEquals(q, i.getArgument(0));
+				return null;
+			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -49,6 +53,10 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
+			doAnswer((i) -> {
+				assertEquals(q, i.getArgument(0));
+				return null;
+			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -64,6 +72,10 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
+			doAnswer((i) -> {
+				assertEquals(q, i.getArgument(0));
+				return null;
+			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -79,6 +91,10 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
+			doAnswer((i) -> {
+				assertEquals(q, i.getArgument(0));
+				return null;
+			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -98,20 +114,21 @@ public class EmaitzakIpiniMockINTTest {
 			doThrow(EventNotFinished.class).when(dataAccess).EmaitzakIpini(Mockito.any(Quote.class));
 			Mockito.doReturn("Data gaurkoa baina altuagoa da").when(mockedException1).getMessage();
 			try {
-				sut.EmaitzakIpini(null);
+				sut.EmaitzakIpini(q);
 				fail();
 			}catch(EventNotFinished e3) {
+				try {
+					Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
+				} catch (EventNotFinished e1) {
 					fail();
+				}
+				assertEquals(quoteCaptor.getValue(), q);
+				String msg= mockedException1.getMessage();
+				assertEquals(expected, msg);
+				System.out.println("kaixo");
 			}
 		} catch (EventNotFinished e) {
-			try {
-				Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
-			} catch (EventNotFinished e1) {
-				e1.printStackTrace();
-			}
-			assertEquals(quoteCaptor.getValue(), q);
-			String msg= mockedException1.getMessage();
-			assertEquals(expected, msg);
+			fail();
 		}
 	}
 	
@@ -125,7 +142,7 @@ public class EmaitzakIpiniMockINTTest {
 			doThrow(NullPointerException.class).when(dataAccess).EmaitzakIpini(Mockito.any(Quote.class));
 			Mockito.doReturn("Pasatako quota ez dago datu basean").when(mockedException2).getMessage();
 			try {
-				sut.EmaitzakIpini(null);
+				sut.EmaitzakIpini(q);
 				fail();
 			}catch(EventNotFinished e3) {
 					fail();
