@@ -910,6 +910,7 @@ public void open(boolean initializeMode){
 	}
 	
 	public Quote storeQuote(String forecast, Double Quote, Question question) throws QuoteAlreadyExist {
+	
 		Question q = db.find(Question.class, question.getQuestionNumber());
 		
 		if (q.doesQuoteExist(forecast)) throw new QuoteAlreadyExist("Kuota existitzen da");
@@ -1062,20 +1063,20 @@ public void open(boolean initializeMode){
 	}
 	
 	public List<Apustua> findApustua(User u){
-		db.find(User.class, u.getUsername()); 
+		Registered user = (Registered) db.find(User.class, u.getUsername()); 
 		TypedQuery<Apustua> Aquery = db.createQuery("SELECT a FROM Apustua a WHERE a.getUser().getUsername() =?1 ", Apustua.class);
 		Aquery.setParameter(1, u.getUsername());
 		return Aquery.getResultList();
 	}
 	public List<ApustuAnitza> findApustuAnitza(User u){
-		db.find(User.class, u.getUsername()); 
+		Registered user = (Registered) db.find(User.class, u.getUsername()); 
 		TypedQuery<ApustuAnitza> Aquery = db.createQuery("SELECT aa FROM ApustuAnitza aa WHERE aa.getUser().getUsername() =?1 ", ApustuAnitza.class);
 		Aquery.setParameter(1, u.getUsername());
 		return Aquery.getResultList();
 	}
 	
 	public List<Transaction> findTransakzioak(User u){
-		db.find(User.class, u.getUsername()); 
+		Registered user = (Registered) db.find(User.class, u.getUsername()); 
 		TypedQuery<Transaction> Tquery = db.createQuery("SELECT t FROM Transaction t WHERE t.getErabiltzailea().getUsername() =?1 ", Transaction.class);
 		Tquery.setParameter(1, u.getUsername());
 		return Tquery.getResultList();
@@ -1084,7 +1085,7 @@ public void open(boolean initializeMode){
 	
 	public void ApustuaIrabazi(ApustuAnitza apustua) {
 		ApustuAnitza apustuAnitza = db.find(ApustuAnitza.class, apustua.getApustuAnitzaNumber());
-		Registered reg =  apustuAnitza.getUser();
+		Registered reg = (Registered) apustuAnitza.getUser();
 		Registered r = (Registered) db.find(User.class, reg.getUsername());
 		db.getTransaction().begin();
 		apustuAnitza.setEgoera("irabazita");
