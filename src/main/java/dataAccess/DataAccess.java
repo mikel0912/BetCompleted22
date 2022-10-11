@@ -248,11 +248,12 @@ public class DataAccess implements DataAccessInterface {
 				
 			}			
 			else {
-				q1=ev1.addQuestion("Zeinek irabaziko du partidua?",1);
+				String zeinIrabazi = "Zeinek irabaziko du partidua?";
+				q1=ev1.addQuestion(zeinIrabazi,1);
 				q2=ev1.addQuestion("Zeinek sartuko du lehenengo gola?",2);
-				q3=ev11.addQuestion("Zeinek irabaziko du partidua?",1);
+				q3=ev11.addQuestion(zeinIrabazi,1);
 				q4=ev11.addQuestion("Zenbat gol sartuko dira?",2);
-				q5=ev17.addQuestion("Zeinek irabaziko du partidua?",1);
+				q5=ev17.addQuestion(zeinIrabazi,1);
 				q6=ev17.addQuestion("Golak sartuko dira lehenengo zatian?",2);
 				
 				
