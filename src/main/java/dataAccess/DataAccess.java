@@ -1293,8 +1293,12 @@ public void open(boolean initializeMode){
 		Boolean b=false;
 		Event gertaera = db.find(Event.class, e.getEventNumber());
 		db.getTransaction().begin();
-		
-		
+		b = kopiatu(date, b, gertaera);
+		db.getTransaction().commit();
+		return b;
+	}
+
+	public Boolean kopiatu(Date date, Boolean b, Event gertaera) {
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.getDescription()=?1 and ev.getEventDate()=?2",Event.class);   
 		query.setParameter(1,gertaera.getDescription());
 		query.setParameter(2, date);
@@ -1307,20 +1311,23 @@ public void open(boolean initializeMode){
 			gertKopiatu.setSport(gertaera.getSport());
 			gertaera.getSport().addEvent(gertKopiatu);
 			db.persist(gertKopiatu);
-				for(Question q : gertaera.getQuestions()) {
-					Question que= new Question(q.getQuestion(), q.getBetMinimum(), gertKopiatu);
-					gertKopiatu.listaraGehitu(que);
-					Question galdera = db.find(Question.class, q.getQuestionNumber());
-					db.persist(que);
-					for(Quote k: galdera.getQuotes()) {
-						Quote kuo= new Quote(k.getQuote(), k.getForecast(), que);
-						que.listaraGehitu(kuo);
-						db.persist(kuo);
-					}
-				}
+			galderakKuotakKopiatu(gertaera, gertKopiatu);
 		}
-		db.getTransaction().commit();
 		return b;
+	}
+
+	public void galderakKuotakKopiatu(Event gertaera, Event gertKopiatu) {
+		for(Question q : gertaera.getQuestions()) {
+			Question que= new Question(q.getQuestion(), q.getBetMinimum(), gertKopiatu);
+			gertKopiatu.listaraGehitu(que);
+			Question galdera = db.find(Question.class, q.getQuestionNumber());
+			db.persist(que);
+			for(Quote k: galdera.getQuotes()) {
+				Quote kuo= new Quote(k.getQuote(), k.getForecast(), que);
+				que.listaraGehitu(kuo);
+				db.persist(kuo);
+			}
+		}
 	}
 	
 	public boolean jarraitu(Registered jabea, Registered jarraitua, Double limite) {
