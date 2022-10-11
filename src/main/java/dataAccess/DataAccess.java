@@ -1141,11 +1141,7 @@ public void open(boolean initializeMode){
 		boolean resultB = true; 
 		List<Question> listQ = event.getQuestions(); 
 		
-		for(Question q : listQ) {
-			if(q.getResult() == null) {
-				resultB = false; 
-			}
-		}
+		resultB = emaitzaGuztiakJarrita(resultB, listQ);
 		if(resultB == false) {
 			return false;
 		}else if(new Date().compareTo(event.getEventDate())<0) {
@@ -1160,11 +1156,7 @@ public void open(boolean initializeMode){
 					db.getTransaction().begin();
 					ap1.removeApustua(quo.getApustuak().get(i));
 					db.getTransaction().commit();
-					if(ap1.getApustuak().isEmpty() && !ap1.getEgoera().equals("galduta")) {
-						this.apustuaEzabatu(ap1.getUser(), ap1);
-					}else if(!ap1.getApustuak().isEmpty() && ap1.irabazitaMarkatu()){
-						this.ApustuaIrabazi(ap1);
-					}
+					apustuaBukatutzatEman(ap1);
 					db.getTransaction().begin();
 					Sport spo =quo.getQuestion().getEvent().getSport();
 					spo.setApustuKantitatea(spo.getApustuKantitatea()-1);
@@ -1179,6 +1171,23 @@ public void open(boolean initializeMode){
 		db.remove(event);
 		db.getTransaction().commit();
 		return true; 
+	}
+
+	private void apustuaBukatutzatEman(ApustuAnitza ap1) {
+		if(ap1.getApustuak().isEmpty() && !ap1.getEgoera().equals("galduta")) {
+			this.apustuaEzabatu(ap1.getUser(), ap1);
+		}else if(!ap1.getApustuak().isEmpty() && ap1.irabazitaMarkatu()){
+			this.ApustuaIrabazi(ap1);
+		}
+	}
+
+	private boolean emaitzaGuztiakJarrita(boolean resultB, List<Question> listQ) {
+		for(Question q : listQ) {
+			if(q.getResult() == null) {
+				resultB = false; 
+			}
+		}
+		return resultB;
 	}
 	
 	public String saldoaBistaratu(User u) {
