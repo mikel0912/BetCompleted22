@@ -43,9 +43,10 @@ public class GertaerakKopiatuGUI extends JFrame{
 	public GertaerakKopiatuGUI() {
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(455, 370));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("GertaerakKopiatu"));
+		ResourceBundle bundle = ResourceBundle.getBundle("Etiquetas");
+		this.setTitle(bundle.getString("GertaerakKopiatu"));
 		
-		lblGertaerakKopiatu = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("GertaerakKopiatu"));
+		lblGertaerakKopiatu = new JLabel(bundle.getString("GertaerakKopiatu"));
 		lblGertaerakKopiatu.setBackground(Color.PINK);
 		lblGertaerakKopiatu.setOpaque(true);
 		lblGertaerakKopiatu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,7 +70,7 @@ public class GertaerakKopiatuGUI extends JFrame{
 		scrollBar.setBounds(25, 33, 387, 181);
 		getContentPane().add(scrollBar);
 		
-		lblYear = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Year")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblYear = new JLabel(bundle.getString("Year")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblYear.setOpaque(true);
 		lblYear.setForeground(Color.WHITE);
 		lblYear.setBackground(Color.PINK);
@@ -77,7 +78,7 @@ public class GertaerakKopiatuGUI extends JFrame{
 		lblYear.setBounds(58, 224, 59, 13);
 		getContentPane().add(lblYear);
 		
-		lblMonth = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Month")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblMonth = new JLabel(bundle.getString("Month")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblMonth.setOpaque(true);
 		lblMonth.setForeground(Color.WHITE);
 		lblMonth.setBackground(Color.PINK);
@@ -85,7 +86,7 @@ public class GertaerakKopiatuGUI extends JFrame{
 		lblMonth.setBounds(174, 224, 86, 13);
 		getContentPane().add(lblMonth);
 		
-		lblDay = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Day")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblDay = new JLabel(bundle.getString("Day")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblDay.setOpaque(true);
 		lblDay.setForeground(Color.WHITE);
 		lblDay.setBackground(Color.PINK);
@@ -114,15 +115,15 @@ public class GertaerakKopiatuGUI extends JFrame{
 		getContentPane().add(txtDay);
 		txtDay.setColumns(10);
 		
-		btnCopy = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Copiar")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnCopy = new JButton(bundle.getString("Copiar")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnCopy.setBackground(Color.PINK);
 		btnCopy.setForeground(Color.DARK_GRAY);
 		btnCopy.setEnabled(false);
 		
-		btnInfo = new JButton(ResourceBundle.getBundle("Etiquetas").getString("InfoIkusi")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnInfo = new JButton(bundle.getString("InfoIkusi")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnInfo.setForeground(Color.DARK_GRAY);
 		btnInfo.setBackground(Color.PINK);
-		JButton btnClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnClose = new JButton(bundle.getString("Close")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnClose.setBackground(Color.DARK_GRAY);
 		btnClose.setForeground(Color.WHITE);
 		btnClose.addActionListener(new ActionListener() {
@@ -151,25 +152,25 @@ public class GertaerakKopiatuGUI extends JFrame{
 							b = businessLogic.gertaerakKopiatu((Event)list.getSelectedValue(), date);
 						}else if(date.compareTo(new Date())<0){
 							lblError.setVisible(true);
-							lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("GertaeraKopiatuError"));
+							lblError.setText(bundle.getString("GertaeraKopiatuError"));
 						}else if(!b) {
 							lblError.setVisible(true);
-							lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("GertaeraSorError"));
+							lblError.setText(bundle.getString("GertaeraSorError"));
 						}else{
 							lblError.setVisible(true);
-							lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("GertaeraSorCorrect"));
+							lblError.setText(bundle.getString("GertaeraSorCorrect"));
 						}
 						eventsLista.removeAllElements();
 						eventsLista.addAll(businessLogic.getEventsAll());
 						btnCopy.setEnabled(false);
 						btnInfo.setEnabled(false);
 					}else {
-						lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("DateError"));
+						lblError.setText(bundle.getString("DateError"));
 						lblError.setVisible(true);
 					}
 				}catch(NumberFormatException a) {
 					lblError.setVisible(true);
-					lblError.setText(ResourceBundle.getBundle("Etiquetas").getString("DateError"));
+					lblError.setText(bundle.getString("DateError"));
 				}
 			}
 		});
