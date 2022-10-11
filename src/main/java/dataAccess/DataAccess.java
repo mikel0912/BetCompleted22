@@ -1231,14 +1231,18 @@ public void open(boolean initializeMode){
 			db.getTransaction().begin();
 			Message m = new Message(igorle, hartzaile, mezuEgitura.get(1));
 			db.persist(m);
-			elkarrizketaEguneratu(mezuEgitura.get(0), elkarrizketa, igorle, hartzaile, m);
+			ArrayList<User> erabiltzaileak = new ArrayList<User>();
+			erabiltzaileak.add(igorle);
+			erabiltzaileak.add(hartzaile);
+			elkarrizketaEguneratu(mezuEgitura.get(0), elkarrizketa, erabiltzaileak, m);
 			db.getTransaction().commit();
 			return true;
 		}
 	}
-
-	private void elkarrizketaEguneratu(String titulo, Elkarrizketa elkarrizketa, User igorle, User hartzaile,Message m) {
+	private void elkarrizketaEguneratu(String titulo, Elkarrizketa elkarrizketa, ArrayList<User> erabiltzaileak ,Message m) {
 		Elkarrizketa elk;
+		User igorle = erabiltzaileak.get(0);
+		User hartzaile = erabiltzaileak.get(1);
 		if(elkarrizketa!=null) {
 			elk = db.find(Elkarrizketa.class, elkarrizketa.getElkarrizketaNumber());
 		}else {
