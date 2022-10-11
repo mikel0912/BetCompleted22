@@ -1226,21 +1226,26 @@ public void open(boolean initializeMode){
 			db.getTransaction().begin();
 			Message m = new Message(igorle, hartzaile, test);
 			db.persist(m);
-			if(elkarrizketa!=null) {
-				elk = db.find(Elkarrizketa.class, elkarrizketa.getElkarrizketaNumber());
-			}else {
-				elk= new Elkarrizketa(titulo, igorle, hartzaile);
-				db.persist(elk);
-				m.setElkarrizketa(elk);
-				igorle.addElkarrizketak(elk);
-				hartzaile.addElkarrizketak(elk);
-			}
-			elk.addMezua(m);
-			igorle.addBidalitakoMezuak(m);
-			hartzaile.addJasotakoMezuak(m);
+			elkarrizketaEguneratu(titulo, elkarrizketa, igorle, hartzaile, m);
 			db.getTransaction().commit();
 			return true;
 		}
+	}
+
+	private void elkarrizketaEguneratu(String titulo, Elkarrizketa elkarrizketa, User igorle, User hartzaile,Message m) {
+		Elkarrizketa elk;
+		if(elkarrizketa!=null) {
+			elk = db.find(Elkarrizketa.class, elkarrizketa.getElkarrizketaNumber());
+		}else {
+			elk= new Elkarrizketa(titulo, igorle, hartzaile);
+			db.persist(elk);
+			m.setElkarrizketa(elk);
+			igorle.addElkarrizketak(elk);
+			hartzaile.addElkarrizketak(elk);
+		}
+		elk.addMezua(m);
+		igorle.addBidalitakoMezuak(m);
+		hartzaile.addJasotakoMezuak(m);
 	}
 	
 	public List<Registered> rankingLortu(){
