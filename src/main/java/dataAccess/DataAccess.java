@@ -257,7 +257,7 @@ public class DataAccess implements DataAccessInterface {
 				q6=ev17.addQuestion("Golak sartuko dira lehenengo zatian?",2);
 				
 				
-			}
+			}//
 			q7 = ev21.addQuestion("Emaitza?", 1);
 			q8 = ev21.addQuestion("Emaitza?", 1);
 			q9 = ev22.addQuestion("Irabazlea?", 1.5);
