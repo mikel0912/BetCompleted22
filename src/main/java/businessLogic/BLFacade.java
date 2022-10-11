@@ -1,5 +1,6 @@
 package businessLogic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -108,7 +109,7 @@ public interface BLFacade {
 	
 	@WebMethod public List<ElkarrizketaContainer> elkarrizketakLortu(User u);
 	
-	@WebMethod public boolean mezuaBidali(User igorle, String hartzailea, String asunto, String test, Elkarrizketa m);
+	@WebMethod public boolean mezuaBidali(User igorle, String hartzailea, ArrayList<String> mezua, Elkarrizketa m);
 	
 	@WebMethod public List<Registered> rankingLortu();
 	

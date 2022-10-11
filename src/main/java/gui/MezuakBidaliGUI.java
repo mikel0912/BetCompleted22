@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -111,7 +112,10 @@ public class MezuakBidaliGUI extends JFrame{
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!user.getUsername().equals(txtHartzailea.getText())) {
-					Boolean ema= businessLogic.mezuaBidali(user, txtHartzailea.getText(), txtAsunto.getText(), txtTestua.getText(), elkarrizketa);
+					ArrayList<String> mezua= new ArrayList<String>();
+					mezua.add(txtAsunto.getText());
+					mezua.add(txtTestua.getText());
+					Boolean ema= businessLogic.mezuaBidali(user, txtHartzailea.getText(), mezua, elkarrizketa);
 					if(ema) {
 						thisw.setVisible(false);
 						JFrame a = new SarreraOntziaGUI(user);

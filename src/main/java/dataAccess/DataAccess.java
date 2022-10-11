@@ -1219,7 +1219,7 @@ public void open(boolean initializeMode){
 		return lista;
 	}
 	
-	public boolean mezuaBidali(User igorlea, String hartzailea, String titulo, String test, Elkarrizketa elkarrizketa) {
+	public boolean mezuaBidali(User igorlea, String hartzailea, ArrayList<String> mezuEgitura, Elkarrizketa elkarrizketa) {
 		User igorle = db.find(User.class, igorlea.getUsername());
 		User hartzaile = db.find(User.class, hartzailea);
 		Elkarrizketa elk=null;
@@ -1227,9 +1227,9 @@ public void open(boolean initializeMode){
 			return false;
 		}else {
 			db.getTransaction().begin();
-			Message m = new Message(igorle, hartzaile, test);
+			Message m = new Message(igorle, hartzaile, mezuEgitura.get(1));
 			db.persist(m);
-			elkarrizketaEguneratu(titulo, elkarrizketa, igorle, hartzaile, m);
+			elkarrizketaEguneratu(mezuEgitura.get(0), elkarrizketa, igorle, hartzaile, m);
 			db.getTransaction().commit();
 			return true;
 		}

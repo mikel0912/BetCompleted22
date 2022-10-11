@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -134,7 +135,7 @@ public interface DataAccessInterface {
 	
 	public List<MezuakContainer> mezuakLortu(Elkarrizketa e);
 	
-	public boolean mezuaBidali(User igorlea, String hartzailea, String titulo, String test, Elkarrizketa elkarrizketa);
+	public boolean mezuaBidali(User igorlea, String hartzailea, ArrayList<String> mezua, Elkarrizketa elkarrizketa);
 	
 	public List<Registered> rankingLortu();
 	
