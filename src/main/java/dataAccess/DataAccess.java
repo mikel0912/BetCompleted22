@@ -1108,10 +1108,22 @@ public void open(boolean initializeMode){
 		
 		if(new Date().compareTo(q.getQuestion().getEvent().getEventDate())<0)
 			throw new EventNotFinished("Data gaurkoa baina altuagoa da");
-
 		Vector<Apustua> listApustuak = q.getApustuak();
 		db.getTransaction().begin();
 		Question que = q.getQuestion(); 
+		egoeraAdierazi(result, que);
+		db.getTransaction().commit();
+		for(Apustua a : listApustuak) {
+			db.getTransaction().begin();
+			Boolean bool=a.getApustuAnitza().irabazitaMarkatu();
+			db.getTransaction().commit();
+			if(bool) {
+				this.ApustuaIrabazi(a.getApustuAnitza());
+			}
+		}
+	}
+
+	public void egoeraAdierazi(String result, Question que) {
 		Question question = db.find(Question.class, que); 
 		question.setResult(result);
 		for(Quote quo: question.getQuotes()) {
@@ -1123,15 +1135,6 @@ public void open(boolean initializeMode){
 				}else {
 					apu.setEgoera("irabazita");
 				}
-			}
-		}
-		db.getTransaction().commit();
-		for(Apustua a : listApustuak) {
-			db.getTransaction().begin();
-			Boolean bool=a.getApustuAnitza().irabazitaMarkatu();
-			db.getTransaction().commit();
-			if(bool) {
-				this.ApustuaIrabazi(a.getApustuAnitza());
 			}
 		}
 	}
