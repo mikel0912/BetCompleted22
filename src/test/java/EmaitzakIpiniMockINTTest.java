@@ -34,10 +34,6 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			doAnswer((i) -> {
-				assertEquals(q, i.getArgument(0));
-				return null;
-			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -53,10 +49,6 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			doAnswer((i) -> {
-				assertEquals(q, i.getArgument(0));
-				return null;
-			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -72,10 +64,6 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			doAnswer((i) -> {
-				assertEquals(q, i.getArgument(0));
-				return null;
-			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
@@ -91,10 +79,6 @@ public class EmaitzakIpiniMockINTTest {
 		try {
 			Quote q = new Quote(3.5, "1", new Question());
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			doAnswer((i) -> {
-				assertEquals(q, i.getArgument(0));
-				return null;
-			}).when(dataAccess).EmaitzakIpini(q);
 			sut.EmaitzakIpini(q);
 			Mockito.verify(dataAccess,Mockito.times(1)).EmaitzakIpini(quoteCaptor.capture());
 			assertEquals(quoteCaptor.getValue(), q);
