@@ -1,0 +1,27 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-08-23 16:30:26 #1 server] 
+Server on port 6136 has started by 10404@DESKTOP-0ERA6U6
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-08-23 16:30:32 #1 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' has been recovered (tr. 1-6)
+
+[2022-08-23 16:30:32 #2 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' is opened by 4368@DESKTOP-0ERA6U6
+
+[2022-08-23 16:31:42 #3 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' is closed by 4368@DESKTOP-0ERA6U6
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-08-23 16:36:25 #1 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' has been recovered (tr. 1-6)
+
+[2022-08-23 16:36:25 #2 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' is opened by 640@DESKTOP-0ERA6U6
+
+[2022-08-23 16:36:40 #3 store] 
+Database 'C:\Users\Mikel\git\LaLiga\src\main\resources\bets.temp' is closed by 640@DESKTOP-0ERA6U6
+

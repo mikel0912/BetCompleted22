@@ -1,0 +1,190 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-10-14 18:06:45 #1 store] 
+Database 'C:\Users\Mikel\git\BetCompleted22_3\src\main\resources\bets.temp' has been recovered (tr. 14-272)
+
+[2022-10-14 18:06:45 #2 store] 
+Database 'C:\Users\Mikel\git\BetCompleted22_3\src\main\resources\bets.temp' is opened by 1464@DESKTOP-0ERA6U6
+
+[2022-10-14 18:06:45 #3 type] 
+Type domain.Team is not enhanced.
+
+[2022-10-14 18:06:45 #4 type] 
+Type domain.Event is not enhanced.
+
+[2022-10-14 18:06:45 #5 type] 
+Type domain.User is not enhanced.
+
+[2022-10-14 18:06:45 #6 type] 
+Type domain.Registered is not enhanced.
+
+[2022-10-14 18:06:45 #7 type] 
+Type domain.Sport is not enhanced.
+
+[2022-10-14 18:06:45 #8 type] 
+Type domain.Question is not enhanced.
+
+[2022-10-14 18:06:45 #9 type] 
+Type domain.Elkarrizketa is not enhanced.
+
+[2022-10-14 18:06:45 #10 type] 
+Type domain.Message is not enhanced.
+
+[2022-10-14 18:06:45 #11 type] 
+Type domain.KirolEstatistikak is not enhanced.
+
+[2022-10-14 18:06:45 #12 type] 
+Type domain.Jarraitzailea is not enhanced.
+
+[2022-10-14 18:06:45 #13 type] 
+Type domain.ApustuAnitza is not enhanced.
+
+[2022-10-14 18:06:45 #14 type] 
+Type domain.Transaction is not enhanced.
+
+[2022-10-14 18:06:45 #15 type] 
+Type domain.Quote is not enhanced.
+
+[2022-10-14 18:06:45 #16 type] 
+Type domain.Apustua is not enhanced.
+
+[2022-10-14 18:06:45 #17 type] 
+Type domain.Admin is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-10-14 18:16:26 #1 store] 
+Database 'C:\Users\Mikel\git\BetCompleted22_3\src\main\resources\bets.temp' is opened by 21284@DESKTOP-0ERA6U6
+
+[2022-10-14 18:16:26 #2 type.registry] 
+New type domain.Team
+
+[2022-10-14 18:16:26 #3 type] 
+Type domain.Team is not enhanced.
+
+[2022-10-14 18:16:26 #4 type.registry] 
+New type domain.Event
+
+[2022-10-14 18:16:26 #5 type.registry] 
+New type java.util.Vector<domain.Event>
+
+[2022-10-14 18:16:26 #6 type.registry] 
+New type domain.User
+
+[2022-10-14 18:16:26 #7 type.registry] 
+New type domain.Registered
+
+[2022-10-14 18:16:26 #8 type.registry] 
+New type java.util.Vector<domain.Registered>
+
+[2022-10-14 18:16:26 #9 type] 
+Type domain.Event is not enhanced.
+
+[2022-10-14 18:16:26 #10 type.registry] 
+New type domain.Sport
+
+[2022-10-14 18:16:26 #11 type.registry] 
+New type domain.Question
+
+[2022-10-14 18:16:26 #12 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-10-14 18:16:26 #13 type] 
+Type domain.User is not enhanced.
+
+[2022-10-14 18:16:26 #14 type.registry] 
+New type domain.Elkarrizketa
+
+[2022-10-14 18:16:26 #15 type.registry] 
+New type java.util.Vector<domain.Elkarrizketa>
+
+[2022-10-14 18:16:26 #16 type.registry] 
+New type domain.Message
+
+[2022-10-14 18:16:26 #17 type.registry] 
+New type java.util.Vector<domain.Message>
+
+[2022-10-14 18:16:26 #18 type] 
+Type domain.Registered is not enhanced.
+
+[2022-10-14 18:16:26 #19 type.registry] 
+New type domain.KirolEstatistikak
+
+[2022-10-14 18:16:26 #20 type.registry] 
+New type java.util.Vector<domain.KirolEstatistikak>
+
+[2022-10-14 18:16:26 #21 type.registry] 
+New type domain.Jarraitzailea
+
+[2022-10-14 18:16:26 #22 type.registry] 
+New type java.util.Vector<domain.Jarraitzailea>
+
+[2022-10-14 18:16:26 #23 type.registry] 
+New type domain.ApustuAnitza
+
+[2022-10-14 18:16:26 #24 type.registry] 
+New type java.util.Vector<domain.ApustuAnitza>
+
+[2022-10-14 18:16:26 #25 type.registry] 
+New type domain.Transaction
+
+[2022-10-14 18:16:26 #26 type] 
+Type domain.Sport is not enhanced.
+
+[2022-10-14 18:16:26 #27 type] 
+Type domain.Question is not enhanced.
+
+[2022-10-14 18:16:26 #28 type.registry] 
+New type domain.Quote
+
+[2022-10-14 18:16:26 #29 type.registry] 
+New type java.util.Vector<domain.Quote>
+
+[2022-10-14 18:16:26 #30 type] 
+Type domain.Elkarrizketa is not enhanced.
+
+[2022-10-14 18:16:26 #31 type.registry] 
+New type java.util.ArrayList<domain.Message>
+
+[2022-10-14 18:16:26 #32 type] 
+Type domain.Message is not enhanced.
+
+[2022-10-14 18:16:26 #33 type] 
+Type domain.KirolEstatistikak is not enhanced.
+
+[2022-10-14 18:16:26 #34 type] 
+Type domain.Jarraitzailea is not enhanced.
+
+[2022-10-14 18:16:26 #35 type] 
+Type domain.ApustuAnitza is not enhanced.
+
+[2022-10-14 18:16:26 #36 type.registry] 
+New type domain.Apustua
+
+[2022-10-14 18:16:26 #37 type.registry] 
+New type java.util.Vector<domain.Apustua>
+
+[2022-10-14 18:16:26 #38 type] 
+Type domain.Transaction is not enhanced.
+
+[2022-10-14 18:16:26 #39 type] 
+Type domain.Quote is not enhanced.
+
+[2022-10-14 18:16:26 #40 type] 
+Type domain.Apustua is not enhanced.
+
+[2022-10-14 18:16:26 #41 type.registry] 
+New type domain.Admin
+
+[2022-10-14 18:16:26 #42 type] 
+Type domain.Admin is not enhanced.
+
+[2022-10-14 18:16:26 #43 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+[2022-10-14 18:16:26 #44 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2022-10-14 18:16:26 #45 type.registry] 
+New type java.util.Vector<domain.Transaction>
+

@@ -30,7 +30,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/david/git/BetCompleted22-/target/classes/objectdb.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="libs/byte-buddy-1.10.1.jar"/>
+	<classpathentry kind="lib" path="libs/byte-buddy-agent-1.10.1.jar"/>
+	<classpathentry kind="lib" path="libs/mockito-core-3.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/objenesis-tck-3.0.1.jar"/>
+	<classpathentry kind="lib" path="objectdb-2.6.9/bin/objectdb.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
