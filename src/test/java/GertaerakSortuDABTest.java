@@ -17,7 +17,7 @@ import exceptions.QuestionAlreadyExist;
 import test.dataAccess.TestDataAccess;
 
 public class GertaerakSortuDABTest {
-
+	//Komentarioa
 
 	static DataAccessInterface sut=new DataAccess();
 
