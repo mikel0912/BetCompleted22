@@ -27,7 +27,7 @@ import exceptions.QuoteAlreadyExist;
 import test.dataAccess.TestDataAccess;
 
 public class EmaitzakIpiniDABTest {
-	//sut:system under test
+	//sut:system under test 
 		static DataAccessInterface sut=new DataAccess();
 			 
 		//additional operations needed to execute the test 
