@@ -21,6 +21,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import IteratorEvents.ExtendedIterator;
+import IteratorEvents.ExtendedIteratorEvents;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Admin;
@@ -804,6 +806,19 @@ public class DataAccess implements DataAccessInterface {
 		   res.add(ev);
 		  }
 	 	return res;
+	}
+	public ExtendedIterator<Event> getEvents2(Date date) {
+		System.out.println(">> DataAccess: getEvents");
+		List<Event> res = new ArrayList<Event>();
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
+		query.setParameter(1, date);
+		List<Event> events = query.getResultList();
+	 	 for (Event ev:events){
+	 	   System.out.println(ev.toString());		 
+		   res.add(ev);
+		  }
+	 	ExtendedIterator<Event> ema = new ExtendedIteratorEvents(res);
+	 	return ema;
 	}
 	
 	/**

@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import IteratorEvents.ExtendedIterator;
 import domain.ApustuAnitza;
 import domain.Apustua;
 import domain.Elkarrizketa;
@@ -55,6 +56,8 @@ public interface BLFacade {
 	 * @return collection of events
 	 */
 	@WebMethod public List<Event> getEvents(Date date);
+	
+	@WebMethod public ExtendedIterator<Event> getEvents2(Date date);
 	
 	/**
 	 * This method retrieves from the database the dates a month for which there are events

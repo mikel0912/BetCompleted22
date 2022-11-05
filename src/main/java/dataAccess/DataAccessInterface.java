@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import IteratorEvents.ExtendedIterator;
 import domain.ApustuAnitza;
 import domain.Apustua;
 import domain.Elkarrizketa;
@@ -68,6 +69,8 @@ public interface DataAccessInterface {
 	 * @return collection of events
 	 */
 	List<Event> getEvents(Date date);
+	
+	ExtendedIterator<Event> getEvents2(Date date);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are events
