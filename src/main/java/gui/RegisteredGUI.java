@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 
 import businessLogic.BLFacade;
 import domain.Event;
+import domain.Registered;
 import domain.User;
 
 
@@ -105,6 +106,16 @@ public class RegisteredGUI extends JFrame {
 			jContentPane.add(getBtnNewButton());
 			jContentPane.add(getBtnRank());
 			jContentPane.add(getBtnDestacados());
+			
+			JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegisteredGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			btnNewButton_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrame a =new WindowTableGUI((Registered)user);
+					a.setVisible(true);
+				}
+			});
+			btnNewButton_1.setBounds(10, 500, 282, 53);
+			jContentPane.add(btnNewButton_1);
 		}
 		return jContentPane;
 	}
