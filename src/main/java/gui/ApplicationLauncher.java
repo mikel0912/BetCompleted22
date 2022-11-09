@@ -42,8 +42,9 @@ public class ApplicationLauncher {
 //			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 //			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
 			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			Integer isLocal=1;
 			
-			appFacadeInterface = fc.createFacade(c.isBusinessLogicLocal());
+			appFacadeInterface = fc.createFacade(isLocal);
 			
 			MainGUI.setBussinessLogic(appFacadeInterface);
 

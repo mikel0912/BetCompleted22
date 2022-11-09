@@ -10,22 +10,25 @@ import configuration.ConfigXML;
 import dataAccess.DataAccess;
 
 public class FacadeCreator {
-	public BLFacade createFacade(boolean isLocal) throws MalformedURLException {
+	public BLFacade createFacade(Integer isLocal) throws MalformedURLException {
 		ConfigXML c=ConfigXML.getInstance();
-		
-		if(isLocal) {
-			DataAccess da= new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
-			return new BLFacadeImplementation(da);
-		}else {
-			String serviceName= "http://"+c.getBusinessLogicNode() +":"+ c.getBusinessLogicPort()+"/ws/"+c.getBusinessLogicName()+"?wsdl";
-			
-			URL url = new URL(serviceName);
+		switch(isLocal) {
+			case 1:
+				DataAccess da= new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
+				return new BLFacadeImplementation(da);
+			case 2:
+				String serviceName= "http://"+c.getBusinessLogicNode() +":"+ c.getBusinessLogicPort()+"/ws/"+c.getBusinessLogicName()+"?wsdl";
+				
+				URL url = new URL(serviceName);
 
-	        QName qname = new QName("http://businessLogic/", "BLFacadeImplementationService");
-	 
-	        Service service = Service.create(url, qname);
-	        return service.getPort(BLFacade.class);
+		        QName qname = new QName("http://businessLogic/", "BLFacadeImplementationService");
+		 
+		        Service service = Service.create(url, qname);
+		        return service.getPort(BLFacade.class);
+			default:
+				break;
 		}
+		return null;
 	}
 
 }

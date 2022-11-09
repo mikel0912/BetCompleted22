@@ -12,7 +12,7 @@ import domain.Event;
 public class Main {
 
 	public static void main(String[] args) throws MalformedURLException {
-		boolean isLocal=true;
+		Integer isLocal=1;
 		BLFacade blFacade = (new FacadeCreator()).createFacade(isLocal);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date;
