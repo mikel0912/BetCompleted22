@@ -107,7 +107,10 @@ public class RegisteredGUI extends JFrame {
 			jContentPane.add(getBtnRank());
 			jContentPane.add(getBtnDestacados());
 			
-			JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegisteredGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			JButton btnNewButton_1 = new JButton("Table of "+user); //$NON-NLS-1$ //$NON-NLS-2$
+			btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnNewButton_1.setForeground(Color.DARK_GRAY);
+			btnNewButton_1.setBackground(Color.PINK);
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JFrame a =new WindowTableGUI((Registered)user);
